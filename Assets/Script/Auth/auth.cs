@@ -47,6 +47,9 @@ namespace PeplayonAuth
         [SerializeField] public Canvas CanvasLoading;
         public bool isLoading = true;
 
+        public GameObject playerDataPrefab;
+        //public LocalDataPlayer localDataPlayer = new LocalDataPlayer();
+
         HttpClient client = new HttpClient();
 
         public void Update()
@@ -73,9 +76,9 @@ namespace PeplayonAuth
                 string responseStr = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
                 Debug.Log(responseStr);
                 Response responseJSON = JsonConvert.DeserializeObject<Response>(responseStr);
-                isLoading = false;
                 if (response.IsSuccessStatusCode)
                 {
+                    isLoading = false;
                     //Test
                     isAuthenticated = true;
                     SetPlayerData(responseJSON);
@@ -179,16 +182,16 @@ namespace PeplayonAuth
 
         public void SetPlayerData(Response _data)
         {
-            Debug.Log("Auth --> Set Player data");
-            Debug.Log($"{_data._id}");
             PlayerPrefs.SetString("Name", _data.Name);
             PlayerPrefs.SetString("UserName", _data.UserName);
-            PlayerPrefs.SetInt("Level", _data.Level);
             PlayerPrefs.SetString("PlayerID", _data.PlayerID);
-            User localData = new User();
-            localData.ID = _data._id;
-            localData.Level = _data.Level;
-            localData.UserName = _data.UserName;
+
+            LocalDataPlayer data = LocalDataPlayer.instance;
+            data.UserName = _data.UserName;
+            data.Name = _data.Name;
+            data.ID= _data._id;
+            data.Level = _data.Level;
+
         }
     }
 

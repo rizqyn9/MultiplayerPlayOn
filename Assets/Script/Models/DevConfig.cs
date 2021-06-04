@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,11 @@ public class DevConfig : MonoBehaviour
         if (isDevMode)
         {
             Debug.Log("Running Developer Mode");
+        } else
+        {
+            Debug.Log("Running Production");
         }
 
-        instance = this;
     }
+
 }

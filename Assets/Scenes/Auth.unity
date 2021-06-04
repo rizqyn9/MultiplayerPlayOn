@@ -282,10 +282,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 36478189}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d3c4fe2e4724198809feb32a09b433, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d24d354bc16240b09974a3484a6bf5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isDevMode: 1
+  UserDevMode: {fileID: 0}
+  UserData: {fileID: 0}
+  isDev: 0
 --- !u!4 &36478191
 Transform:
   m_ObjectHideFlags: 0
@@ -518,6 +521,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178055008}
   m_CullTransparentMesh: 1
+--- !u!1 &288324468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 288324470}
+  - component: {fileID: 288324469}
+  m_Layer: 0
+  m_Name: --LocalDataPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &288324469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288324468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6abfb3226144ebd80c8bd07c060aa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UserName: 
+  Name: 
+  ID: 
+  Level: 0
+--- !u!4 &288324470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288324468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &342943769
 GameObject:
   m_ObjectHideFlags: 0
@@ -1923,6 +1973,7 @@ MonoBehaviour:
   ArrInput: []
   CanvasLoading: {fileID: 1262098381}
   isLoading: 1
+  playerDataPrefab: {fileID: 3502242785568609873, guid: f412eecacd0304502a59a50c57b905d2, type: 3}
 --- !u!114 &1265350536
 MonoBehaviour:
   m_ObjectHideFlags: 0

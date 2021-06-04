@@ -25,12 +25,16 @@ namespace Mirror.Examples.Chat
         public override void OnStartServer()
         {
             base.OnStartServer();
+            Debug.Log("OnStartServer");
+
             NetworkServer.RegisterHandler<CreatePlayerMessage>(OnCreatePlayer);
         }
 
         public override void OnClientConnect(NetworkConnection conn)
         {
             base.OnClientConnect(conn);
+            Debug.Log("OnClientConnect");
+
 
             // tell the server to create a player with this name
             conn.Send(new CreatePlayerMessage { name = PlayerName });
@@ -38,6 +42,7 @@ namespace Mirror.Examples.Chat
 
         void OnCreatePlayer(NetworkConnection connection, CreatePlayerMessage createPlayerMessage)
         {
+            Debug.Log("OnCreatePlayer");
             // create a gameobject using the name supplied by client
             GameObject playergo = Instantiate(playerPrefab);
             playergo.GetComponent<Player>().playerName = createPlayerMessage.name;

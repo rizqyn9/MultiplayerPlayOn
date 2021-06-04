@@ -13,6 +13,7 @@ namespace Mirror.Examples.Chat
         [Command]
         public void CmdSend(string message)
         {
+            Debug.Log("command");
             if (message.Trim() != "")
                 RpcReceive(message.Trim());
         }
@@ -20,6 +21,7 @@ namespace Mirror.Examples.Chat
         [ClientRpc]
         public void RpcReceive(string message)
         {
+            Debug.Log("Rpcs");
             OnMessage?.Invoke(this, message);
         }
     }

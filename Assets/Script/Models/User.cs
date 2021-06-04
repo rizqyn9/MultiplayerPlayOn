@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
-public class User
+[System.Serializable]
+public class User : MonoBehaviour
 {
-    private string _id;
+    [SerializeField] private string _id;
     public string ID
     {
         get => _id;
