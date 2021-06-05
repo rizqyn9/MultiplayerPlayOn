@@ -14,13 +14,13 @@ namespace PeplayonMainMenu
         public Text level;
         public Text id;
 
-        //User dataUser = new User();
-
-
-        //void Start()
-        //{
-        //    userName.text = dataUser.UserName;
-        //}
+        private void Start()
+        {
+            LocalDataPlayer data = LocalDataPlayer.Instance;
+            userName.text = data.UserName;
+            id.text = data.ID;
+            level.text = data.Level.ToString();
+        }
     }
 
 }

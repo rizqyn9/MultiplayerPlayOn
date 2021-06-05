@@ -47,7 +47,6 @@ namespace PeplayonAuth
         [SerializeField] public Canvas CanvasLoading;
         public bool isLoading = true;
 
-        public GameObject playerDataPrefab;
         //public LocalDataPlayer localDataPlayer = new LocalDataPlayer();
 
         HttpClient client = new HttpClient();
@@ -83,8 +82,8 @@ namespace PeplayonAuth
                     isAuthenticated = true;
                     SetPlayerData(responseJSON);
                     SaveTicketID(responseJSON._id);
-                    Debug.Log("Success");
-                    SceneSuccess();
+                    //Debug.Log("Success");
+                    //SceneSuccess();
                 }
                 else
                 {
@@ -186,12 +185,21 @@ namespace PeplayonAuth
             PlayerPrefs.SetString("UserName", _data.UserName);
             PlayerPrefs.SetString("PlayerID", _data.PlayerID);
 
-            LocalDataPlayer data = LocalDataPlayer.instance;
-            data.UserName = _data.UserName;
-            data.Name = _data.Name;
-            data.ID= _data._id;
-            data.Level = _data.Level;
 
+            //LocalDataPlayer data = LocalDataPlayer.instance;
+            //data.UserName = _data.UserName;
+            //data.Name = _data.Name;
+            //data.ID= _data._id;
+            //data.Level = _data.Level;
+
+
+            GameManager gameManager =  GameManager.instance;
+            User dataUser;
+            dataUser.ID = _data._id;
+            dataUser.UserName = _data.UserName;
+            dataUser.Name = _data.Name;
+            dataUser.Level = _data.Level;
+            gameManager.DataLocalUser = dataUser;
         }
     }
 

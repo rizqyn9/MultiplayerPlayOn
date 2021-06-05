@@ -133,6 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 150139695}
   - component: {fileID: 150139696}
+  - component: {fileID: 150139698}
+  - component: {fileID: 150139697}
   m_Layer: 0
   m_Name: --UI
   m_TagString: Untagged
@@ -171,6 +173,39 @@ MonoBehaviour:
   userName: {fileID: 1404702366}
   level: {fileID: 155362813}
   id: {fileID: 1352554913}
+--- !u!114 &150139697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150139694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10bc3af591fdd4620a7c8b58a7901f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIDTest: PlayerTes1
+  isLoading: 0
+--- !u!114 &150139698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150139694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f441adc5c9b014240b5faf2b898a844a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PublicBtn: {fileID: 0}
+  PrivateBtn: {fileID: 0}
+  JoinBtn: {fileID: 0}
+  AutoBtn: {fileID: 0}
+  JoinField: {fileID: 0}
+  LobbyScene: 
+  baseURL: http://localhost:3000/matchmaker
 --- !u!1 &155362811
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,7 +697,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 727792338}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 150139698}
+        m_TargetAssemblyTypeName: Matchmaker.UI_MatchMaking, Assembly-CSharp
+        m_MethodName: StartPublic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &727792338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -804,7 +851,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1102690211}
   - component: {fileID: 1102690210}
-  - component: {fileID: 1102690212}
   m_Layer: 0
   m_Name: --DevConfig
   m_TagString: Untagged
@@ -821,12 +867,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1102690209}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d3c4fe2e4724198809feb32a09b433, type: 3}
+  m_Script: {fileID: 11500000, guid: 544969b74c25c45558c70a7b64440eb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDevMode: 1
-  UserDevMode: {fileID: 0}
-  UserData: {fileID: 0}
+  isDevMode: 0
+  Name: Rizqy
+  ID: index1
+  UserName: PlayerKill
+  level: 2
+  localDataPrefab: {fileID: 3367447430701827398, guid: 2b7beca301e014151a90fc84a1abed56, type: 3}
 --- !u!4 &1102690211
 Transform:
   m_ObjectHideFlags: 0
@@ -841,19 +890,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1102690212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1102690209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e84ac4b9d3e440ffba4c3bcb5376bdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: 
 --- !u!1 &1193031973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,7 +1041,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Level
+  m_Text: ID
 --- !u!222 &1352554914
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1030,7 +1066,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -50}
+  m_AnchoredPosition: {x: 50, y: -80}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1404702364
