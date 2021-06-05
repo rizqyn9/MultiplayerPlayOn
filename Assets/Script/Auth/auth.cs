@@ -186,7 +186,7 @@ namespace PeplayonAuth
             PlayerPrefs.SetString("UserName", _data.UserName);
             PlayerPrefs.SetString("PlayerID", _data.PlayerID);
 
-            LocalDataPlayer data = LocalDataPlayer.instance;
+            GameManager data = GameManager.instance;
             data.UserName = _data.UserName;
             data.Name = _data.Name;
             data.ID= _data._id;

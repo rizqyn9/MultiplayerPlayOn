@@ -13,17 +13,17 @@ namespace PeplayonMainMenu
         [SerializeField] string UserName = "PlayerKill";
         [SerializeField] int level = 2;
 
-        public LocalDataPlayer localDataPrefab;
+        public GameManager localDataPrefab;
 
         private void Start()
         {
             if (isDevMode)
             {
-                LocalDataPlayer localData = LocalDataPlayer.instance;
+                GameManager localData = GameManager.instance;
                 localData.UserName = UserName;
                 localData.Name = Name;
                 localData.ID = ID;
-                localData.Level =level;
+                localData.Level = level;
                 return;
             }
         }

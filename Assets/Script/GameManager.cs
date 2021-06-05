@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [SerializeField]
-public class LocalDataPlayer : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    public static LocalDataPlayer instance = null;
+    public static GameManager instance = null;
 
     [SerializeField] public string UserName;
     [SerializeField] public string Name;
@@ -26,7 +26,7 @@ public class LocalDataPlayer : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public static LocalDataPlayer Instance
+    public static GameManager Instance
     {
         get => instance;
     }

@@ -14,13 +14,14 @@ namespace PeplayonMainMenu
         public Text level;
         public Text id;
 
-        //User dataUser = new User();
-
-
-        //void Start()
-        //{
-        //    userName.text = dataUser.UserName;
-        //}
+        private void Start()
+        {
+            GameManager data = GameManager.instance;
+            Debug.Log($"{data.Name}");
+            userName.text = data.UserName;
+            id.text = data.ID;
+            level.text = data.Level.ToString();
+        }
     }
 
 }
