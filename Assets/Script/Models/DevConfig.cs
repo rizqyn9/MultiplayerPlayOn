@@ -8,7 +8,7 @@ public class DevConfig : MonoBehaviour
 {
     public static DevConfig instance;
 
-    public bool isDevMode = true;
+    public static bool isDevMode = true;
 
     private void Start()
     {

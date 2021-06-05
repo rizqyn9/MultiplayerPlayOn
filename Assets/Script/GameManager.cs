@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public string Name;
     [SerializeField] public string ID;
     [SerializeField] public int Level;
+    [SerializeField] public Room DataRoom;
 
     void Awake()
     {
