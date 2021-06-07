@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -639789441106770667}
   m_Layer: 0
   m_Name: --MatchManager
-  m_TagString: Untagged
+  m_TagString: MatchManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,3 +63,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  countListData: 0

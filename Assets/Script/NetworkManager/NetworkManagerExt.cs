@@ -53,16 +53,28 @@ namespace Networking
         {
             base.OnServerConnect(conn);
             var data = conn.connectionId.ToString();
-            Debug.Log(data);
+            //Debug.Log(data);
             NetList.Add(data);
         }
 
         public override void OnServerAddPlayer(NetworkConnection conn)
         {
             base.OnServerAddPlayer(conn);
-            PlayerNetwork playerNet = conn.identity.GetComponent<PlayerNetwork>();
-            Debug.Log(playerNet.UserName);
+            //PlayerNetwork playerNet = conn.identity.GetComponent<PlayerNetwork>();
+            //playerNet.SetPlayer(conn);
+            //playerNet.playerIndex = numPlayers;
         }
 
+        //public override void OnClientConnect(NetworkConnection conn)
+        //{
+        //    base.OnClientConnect(conn);
+        //}
+
+        public override void OnClientSceneChanged(NetworkConnection conn)
+        {
+            base.OnClientSceneChanged(conn);
+
+            //Debug.Log(playerNet.playerIndex);
+        }
     }
 }

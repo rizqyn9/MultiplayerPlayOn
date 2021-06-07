@@ -15,6 +15,17 @@ namespace Networking
 {
     public class MatchManager : NetworkBehaviour
     {
+        [SerializeField]
+        private string _test = "test";
+        public string test
+        {
+            get => _test;
+            set
+            {
+                _test = value;
+            }
+        }
+
         private NetworkManagerExt _netManager;
         private NetworkManagerExt netManager
         {
@@ -25,13 +36,22 @@ namespace Networking
             }
         }
 
-        public SyncList<SharedPlayer> listDataPlayer = new SyncList<SharedPlayer>();
         public int countListData = 0;
+        public SyncList<SharedPlayer> listDataPlayer = new SyncList<SharedPlayer>();
+
+        [SerializeField]
+        public SyncList<string> playerUsername = new SyncList<string>();
+
+        public int countListDetailPlayer;
+        public SyncDictionary<uint, SharedPlayer> ListDetailPlayer = new SyncDictionary<uint, SharedPlayer>();
+
+
 
         private void Update()
         {
             if (!isLocalPlayer) return;
             countListData = listDataPlayer.Count;
+            countListDetailPlayer = ListDetailPlayer.Count;
         }
 
 
