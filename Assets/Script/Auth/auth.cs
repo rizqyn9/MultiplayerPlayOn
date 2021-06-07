@@ -192,6 +192,13 @@ namespace PeplayonAuth
             data.ID= _data._id;
             data.Level = _data.Level;
 
+            SharedPlayer sharedPlayer;
+            sharedPlayer.Name = _data.Name;
+            sharedPlayer.Level = _data.Level;
+            sharedPlayer.UserName = _data.UserName;
+
+            data.sharedPlayer = sharedPlayer;
+
         }
     }
 

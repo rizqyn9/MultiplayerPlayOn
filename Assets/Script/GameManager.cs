@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public string ID;
     [SerializeField] public int Level;
     [SerializeField] public Room DataRoom;
+    [SerializeField] private SharedPlayer _sharedPlayer;
+    [SerializeField] public SharedPlayer sharedPlayer { get => _sharedPlayer; set { _sharedPlayer = value; } }
 
     void Awake()
     {
