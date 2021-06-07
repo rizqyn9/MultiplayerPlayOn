@@ -22,6 +22,20 @@ namespace Networking
         [SerializeField]
         public List<PlayerData> playerTestList = new List<PlayerData>();
 
+        [SerializeField]
+        public List<SharedPlayer> DataPlayShared = new List<SharedPlayer>();
+
+        [Header("DEBUGGER")]
+        public int PlayerListCount = 0;
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                PlayerListCount = DataPlayShared.Count;
+            }
+        }
+
         public override void OnStartServer()
         {
             Debug.Log("Starting Server");

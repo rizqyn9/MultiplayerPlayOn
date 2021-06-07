@@ -4,14 +4,15 @@ using UnityEngine;
 using Mirror;
 
 
+public struct PlayerData
+{
+    public string UserName;
+    public string Name;
+    public int Level;
+}
+
 namespace Networking
 {
-    public struct PlayerData
-    {
-        public string UserName;
-        public string Name;
-        public int Level;
-    }
     public class MatchManager : NetworkBehaviour
     {
         private NetworkManagerExt _netManager;
@@ -23,6 +24,16 @@ namespace Networking
                 return _netManager = NetworkManager.singleton as NetworkManagerExt;
             }
         }
+
+        public SyncList<SharedPlayer> listDataPlayer = new SyncList<SharedPlayer>();
+        public int countListData = 0;
+
+        private void Update()
+        {
+            if (!isLocalPlayer) return;
+            countListData = listDataPlayer.Count;
+        }
+
 
         void Start()
         {
