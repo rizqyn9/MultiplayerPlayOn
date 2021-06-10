@@ -23,12 +23,17 @@ namespace Networking
         public int Level;
         [SyncVar]
         public uint NetID;
+        [SyncVar]
+        public bool isLeader;
 
 
         [SyncVar]
         public int playerIndex = 0;
 
+
+        public GameObject PrefabPlayerUI;
         public MatchManager matchManager;
+        public BillboardController billboardController;
 
         private NetworkManagerExt _netManager;
         private NetworkManagerExt netManager
@@ -39,9 +44,12 @@ namespace Networking
                 return _netManager = NetworkManager.singleton as NetworkManagerExt;
             }
         }
+
         private void Start()
         {
-            
+            if (!isLocalPlayer) return;
+            GameObject playerUI = Instantiate(PrefabPlayerUI);
+
         }
 
         public override void OnStartLocalPlayer()
@@ -71,6 +79,13 @@ namespace Networking
             matchManager.listDataPlayer.Add(_player);
             matchManager.playerUsername.Add(_player.UserName);
             matchManager.ListDetailPlayer.Add(_netID, _player);
+
+            //Instance Player UI
+            //billboardController = GameObject.FindGameObjectWithTag("Billboard").gameObject.GetComponent<BillboardController>();
+            //billboardController.InstancePlayerUI(_player.UserName, _player.Name, _player.Level);
+
+            PrefabPlayerUI.GetComponent<PlayerUI>().SetUpNewPlayer(this);
         }
+        
     }
 }

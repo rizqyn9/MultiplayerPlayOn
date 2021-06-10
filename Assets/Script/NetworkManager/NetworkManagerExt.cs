@@ -10,6 +10,8 @@ namespace Networking
     {
         [Header("Custom Manager")]
         public GameObject matchManager;
+        public GameObject Billboard;
+        public ClientNetworkController clientNetworkController;
 
         public static List<PlayerNetwork> playerNet = new List<PlayerNetwork>();
 
@@ -42,6 +44,9 @@ namespace Networking
             base.OnStartServer();
             GameObject go = Instantiate(matchManager);
             NetworkServer.Spawn(go);
+
+            //Billboard = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "Billboard"));
+            //NetworkServer.Spawn(Billboard);
         }
 
         public override void OnServerReady(NetworkConnection conn)
@@ -53,8 +58,8 @@ namespace Networking
         {
             base.OnServerConnect(conn);
             var data = conn.connectionId.ToString();
-            //Debug.Log(data);
             NetList.Add(data);
+            clientNetworkController.onConnectedClient(conn);
         }
 
         public override void OnServerAddPlayer(NetworkConnection conn)
@@ -70,11 +75,29 @@ namespace Networking
         //    base.OnClientConnect(conn);
         //}
 
+        public override void OnServerChangeScene(string newSceneName)
+        {
+            Debug.Log("OnServerChangeScene");
+            base.OnServerChangeScene(newSceneName);
+        }
+
+        public override void OnClientChangeScene(string newSceneName, SceneOperation sceneOperation, bool customHandling)
+        {
+            base.OnClientChangeScene(newSceneName, sceneOperation, customHandling);
+            Debug.Log("OnClientChangeScene");
+        }
+
         public override void OnClientSceneChanged(NetworkConnection conn)
         {
             base.OnClientSceneChanged(conn);
-
+            Debug.Log("OnClientSceneChanged");
             //Debug.Log(playerNet.playerIndex);
+        }
+
+        public override void OnServerDisconnect(NetworkConnection conn)
+        {
+            base.OnServerDisconnect(conn);
+            clientNetworkController.onDisconnectedClient(conn);
         }
     }
 }

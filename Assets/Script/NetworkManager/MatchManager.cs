@@ -27,7 +27,7 @@ namespace Networking
         }
 
         private NetworkManagerExt _netManager;
-        private NetworkManagerExt netManager
+        public NetworkManagerExt netManager
         {
             get
             {
