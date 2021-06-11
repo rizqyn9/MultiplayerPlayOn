@@ -19,6 +19,7 @@ namespace PeplayonLobby
         private void Start()
         {
             if (gameManager == null) return;
+            Instantiate(PrefabPlayerUI);
             PlayerShared playerShared;
             playerShared.ID = gameManager.ID;
             playerShared.Name = gameManager.Name;

@@ -66,6 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   playerNetwork: {fileID: 1428582744222485872}
+  PrefabPlayerUI: {fileID: 2733102983288154334, guid: c0ca68e6984c4406db2e53db1137a627, type: 3}
 --- !u!114 &-4474777454465898150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +106,7 @@ MonoBehaviour:
   Name: 
   ID: 
   Level: 0
+  IsLeader: 0
 --- !u!1 &5707638965901959308
 GameObject:
   m_ObjectHideFlags: 0
