@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+[System.Serializable]
 public struct PlayerShared
 {
     public string ID;
@@ -34,6 +35,7 @@ namespace Networking
         [Command]
         public void CmdPlayerSetUp(PlayerShared playerShared)
         {
+            Debug.Log("CmdPlayerSetUp");
             UserName = playerShared.UserName;
             Name = playerShared.Name;
             Level = playerShared.Level;

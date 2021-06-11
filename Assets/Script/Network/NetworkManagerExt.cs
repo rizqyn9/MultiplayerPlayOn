@@ -19,8 +19,27 @@ namespace Networking
             GameObject go = Instantiate(PlayerNetworkManager);
             NetworkServer.Spawn(go);
         }
+        public override void OnServerConnect(NetworkConnection conn)
+        {
+            base.OnServerConnect(conn);
 
 
+        }
+
+        public override void OnClientConnect(NetworkConnection conn)
+        {
+            base.OnClientConnect(conn);
+            //PlayerNetworkManager = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "--PlayerNetworkManager"));
+            //NetworkServer.Spawn(PlayerNetworkManager,conn);
+            //GameObject go = Instantiate(PlayerNetworkManager);
+            //NetworkServer.Spawn(go);
+
+        }
+        public override void OnServerAddPlayer(NetworkConnection conn)
+        {
+            base.OnServerAddPlayer(conn);
+
+        }
 
     }
 }
