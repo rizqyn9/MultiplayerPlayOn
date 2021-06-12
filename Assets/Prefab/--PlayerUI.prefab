@@ -414,6 +414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  playerUI: {fileID: 2733102983288154333}
 --- !u!114 &2733102983288154335
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,6 +20,7 @@ namespace PeplayonLobby
         private void Awake()
         {
             gameManager = GameObject.FindObjectOfType<GameManager>();
+            netPlayerManager = GameObject.FindObjectOfType<NetPlayerManager>();
         }
 
         private void Start()
@@ -38,15 +39,17 @@ namespace PeplayonLobby
             playerNetwork.CmdPlayerSetUp(playerShared);
 
             //AddToPlayerManager(playerShared);
+            //SetUp();
 
         }
 
         public void SetUp()
         {
+            //Debug.Log("connn"+ conn);
             AddToPlayerManager(playerShared);
         }
 
-        [Command]
+        [Command(requiresAuthority =false)]
         void AddToPlayerManager(PlayerShared playerShared)
         {
             netPlayerManager.onlinePlayerStr.Add(gameManager.UserName);

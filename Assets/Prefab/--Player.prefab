@@ -71,6 +71,11 @@ MonoBehaviour:
   NetPlayerManagerPrefab: {fileID: 4159391462323396647, guid: 09cdae2c6b06844d78fc6cbb0cef168a, type: 3}
   gameManager: {fileID: 0}
   netPlayerManager: {fileID: 0}
+  playerShared:
+    ID: 
+    Name: 
+    UserName: 
+    Level: 0
 --- !u!114 &-4474777454465898150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +116,8 @@ MonoBehaviour:
   ID: 
   Level: 0
   IsLeader: 0
+  netPlayerManager: {fileID: 0}
+  netPlayerUI: {fileID: 0}
 --- !u!1 &5707638965901959308
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,20 +27,46 @@ namespace Networking
         [SyncVar]
         public bool IsLeader;
 
+        public NetPlayerManager netPlayerManager;
+        public NetPlayerUI netPlayerUI;
+
         public void Start()
         {
             
         }
 
+        private void Update()
+        {
+            if (!isLocalPlayer) return;
+            //netPlayerUI = GameObject.FindObjectOfType<NetPlayerUI>();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("asdad");
+                //netPlayerUI.CmdPlayerCounter();
+            }
+        }
+
+        private void Awake()
+        {
+            netPlayerManager = GameObject.FindObjectOfType<NetPlayerManager>();
+  
+        }
+
+
         [Command]
         public void CmdPlayerSetUp(PlayerShared playerShared)
         {
-            Debug.Log("CmdPlayerSetUp");
+            //Debug.Log("CmdPlayerSetUp");
             UserName = playerShared.UserName;
             Name = playerShared.Name;
             Level = playerShared.Level;
             ID = playerShared.ID;
             IsLeader = true;
+
+            netPlayerManager.onlinePlayer.Add(playerShared);
+            netPlayerManager.onlinePlayerStr.Add(playerShared.UserName);
+            netPlayerManager.onlinePlayerDic.Add(playerShared.ID, playerShared);
+            netPlayerManager.TotalPlayersInRoom++;
         }
     }
 }
