@@ -26,8 +26,6 @@ namespace PeplayonLobby
         private void Start()
         {
             if (!isLocalPlayer) return;
-            //GameObject go = Instantiate(NetPlayerManagerPrefab);
-            //netPlayerManager = go.GetComponent<NetPlayerManager>();
 
             if (gameManager == null) return;
             Instantiate(PrefabPlayerUI);
@@ -36,24 +34,8 @@ namespace PeplayonLobby
             playerShared.Name = gameManager.Name;
             playerShared.UserName = gameManager.UserName;
             playerShared.Level = gameManager.Level;
+            playerShared.NetID = netId.ToString();
             playerNetwork.CmdPlayerSetUp(playerShared);
-
-            //AddToPlayerManager(playerShared);
-            //SetUp();
-
-        }
-
-        public void SetUp()
-        {
-            //Debug.Log("connn"+ conn);
-            AddToPlayerManager(playerShared);
-        }
-
-        [Command(requiresAuthority =false)]
-        void AddToPlayerManager(PlayerShared playerShared)
-        {
-            netPlayerManager.onlinePlayerStr.Add(gameManager.UserName);
-            netPlayerManager.onlinePlayer.Add(playerShared);
         }
     }
 }

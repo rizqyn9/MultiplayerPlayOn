@@ -15,27 +15,45 @@ namespace PeplayonLobby
         public Button StartBtn;
         public bool isLeader;
         public NetPlayerManager netPlayerManager;
+        public PlayerNetwork playerNetwork;
+        public string NetID = "";
 
         private void Start()
         {
 
             //playerCounter.text = "0";
-            playerRole.text = isLeader ? "Leader" : "Member";
+
             RoomID.text = "Room ID";
-            StartBtn.interactable = false;
         }
 
         private void Awake()
         {
+            Debug.Log("find");
             netPlayerManager = GameObject.FindObjectOfType<NetPlayerManager>();
         }
-
-        public void UpdateUI()
+        /**
+         * <param name="playerShared">For Compare Leader in Room</param>
+         * 
+         */
+        public void UpdateUI(string _NetID)
         {
-                string data = netPlayerManager.onlinePlayer.Count.ToString();
-            Debug.Log(data);
+            Debug.Log("UpdateUI");
+            NetID = GameManager.Instance.NetID;
+
+            isLeader = CheckLeader(GameManager.Instance.NetID, _NetID);
+            string data = netPlayerManager.onlinePlayer.Count.ToString();
             playerCounter.text = data;
-            
+            playerRole.text = isLeader ? "Leader" : "Member";
+            StartBtn.enabled = isLeader;
+
+        }
+
+        //Checking Leader Player
+        bool CheckLeader(string Local, string Leader)
+        {
+            Debug.Log("chechk leader");
+            bool result = Local == Leader ? true : false;
+            return result;
         }
 
         public void SetUp(PlayerShared playerShared)

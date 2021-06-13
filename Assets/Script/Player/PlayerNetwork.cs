@@ -10,8 +10,12 @@ public struct PlayerShared
     public string Name;
     public string UserName;
     public int Level;
+    public string NetID;
 }
 
+/**
+ * Sync data player 
+ */
 namespace Networking
 {
     public class PlayerNetwork : NetworkBehaviour
@@ -26,13 +30,16 @@ namespace Networking
         public int Level;
         [SyncVar]
         public bool IsLeader;
+        [SyncVar]
+        public string NetID;
+
 
         public NetPlayerManager netPlayerManager;
         public NetPlayerUI netPlayerUI;
 
         public void Start()
         {
-            
+
         }
 
         private void Update()
@@ -62,10 +69,13 @@ namespace Networking
             Level = playerShared.Level;
             ID = playerShared.ID;
             IsLeader = true;
+            NetID = playerShared.NetID;
 
+            GameManager.Instance.NetID = NetID;
             netPlayerManager.onlinePlayer.Add(playerShared);
+            netPlayerManager.OnlineNetID.Add(playerShared.ID);
             netPlayerManager.onlinePlayerStr.Add(playerShared.UserName);
-            netPlayerManager.onlinePlayerDic.Add(playerShared.ID, playerShared);
+            netPlayerManager.onlinePlayerDic.Add(NetID, playerShared);
             netPlayerManager.TotalPlayersInRoom++;
         }
     }

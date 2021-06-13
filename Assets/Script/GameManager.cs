@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int Level;
     [SerializeField] public Room DataRoom;
 
+    // Set Online Player
+    public string NetID;
+
     void Awake()
     {
         if (instance == null)
