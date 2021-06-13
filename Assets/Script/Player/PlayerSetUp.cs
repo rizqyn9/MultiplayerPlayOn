@@ -14,6 +14,7 @@ namespace PeplayonLobby
 
         [SerializeField] GameManager gameManager;
         [SerializeField] NetPlayerManager netPlayerManager;
+        [SerializeField] PlayerUI playerUI;
 
         public PlayerShared playerShared;
 
@@ -21,6 +22,7 @@ namespace PeplayonLobby
         {
             gameManager = GameObject.FindObjectOfType<GameManager>();
             netPlayerManager = GameObject.FindObjectOfType<NetPlayerManager>();
+            playerUI = GameObject.FindObjectOfType<PlayerUI>();
         }
 
         private void Start()
@@ -28,14 +30,15 @@ namespace PeplayonLobby
             if (!isLocalPlayer) return;
 
             if (gameManager == null) return;
-            Instantiate(PrefabPlayerUI);
-
+            //Instantiate(PrefabPlayerUI);
+            playerUI.playerNetwork = this.playerNetwork;
             playerShared.ID = gameManager.ID;
             playerShared.Name = gameManager.Name;
             playerShared.UserName = gameManager.UserName;
             playerShared.Level = gameManager.Level;
             playerShared.NetID = netId.ToString();
             playerNetwork.CmdPlayerSetUp(playerShared);
+            
         }
     }
 }

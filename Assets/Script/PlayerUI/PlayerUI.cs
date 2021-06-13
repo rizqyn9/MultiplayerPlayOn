@@ -20,15 +20,17 @@ namespace PeplayonLobby
 
         private void Start()
         {
-
-            //playerCounter.text = "0";
-
             RoomID.text = "Room ID";
         }
 
         private void Awake()
         {
             Debug.Log("find");
+            netPlayerManager = GameObject.FindObjectOfType<NetPlayerManager>();
+        }
+
+        private void OnEnable()
+        {
             netPlayerManager = GameObject.FindObjectOfType<NetPlayerManager>();
         }
         /**
@@ -44,7 +46,7 @@ namespace PeplayonLobby
             string data = netPlayerManager.onlinePlayer.Count.ToString();
             playerCounter.text = data;
             playerRole.text = isLeader ? "Leader" : "Member";
-            StartBtn.enabled = isLeader;
+            //StartBtn.enabled = isLeader;
 
         }
 
@@ -59,6 +61,17 @@ namespace PeplayonLobby
         public void SetUp(PlayerShared playerShared)
         {
 
+        }
+
+        public void StartGame()
+        {
+            Debug.Log("Start Game");
+            playerNetwork.CmdStartGame();
+        }
+
+        public void Test()
+        {
+            Debug.Log("Test");
         }
     }
 }

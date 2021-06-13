@@ -63,3 +63,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  StartScene: Assets/Scenes/Map_1.unity
+  playerUI: {fileID: 0}
+  TotalPlayersInRoom: 0

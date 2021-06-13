@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Mirror;
 using PeplayonLobby;
+using UnityEngine.SceneManagement;
 
 namespace Networking
 {
     public class NetPlayerManager : NetworkBehaviour
     {
+        [Scene] [SerializeField]
+        public string StartScene;
         public PlayerUI playerUI;
 
         public SyncList<string> onlinePlayerStr = new SyncList<string>();
@@ -27,9 +30,7 @@ namespace Networking
 
         void UpdatePlayerRoomState(int old, int _new)
         {
-            Debug.Log("UpdatePlayerRoomState");
             playerUI = GameObject.FindObjectOfType<PlayerUI>();
-            Debug.Log("asdasdkjkljkldfa asfdhajksd");
             //playerUI.UpdateUI(onlinePlayer[0].NetID);
             playerUI.UpdateUI(OnlineNetID[0]);
         }
@@ -40,11 +41,15 @@ namespace Networking
 
         public override void OnStopClient()
         {
-            PlayerUI go = GameObject.FindObjectOfType<PlayerUI>();
-            Destroy(go.gameObject);
+            //PlayerUI go = GameObject.FindObjectOfType<PlayerUI>();
+            //Destroy(go.gameObject);
+        }
 
-
-
+        [ClientRpc]
+        public void RpcStartGamae()
+        {
+            Debug.Log("rpc Scene");
+            SceneManager.LoadScene(StartScene, LoadSceneMode.Single);
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public struct PlayerShared
@@ -77,6 +78,20 @@ namespace Networking
             netPlayerManager.onlinePlayerStr.Add(playerShared.UserName);
             netPlayerManager.onlinePlayerDic.Add(NetID, playerShared);
             netPlayerManager.TotalPlayersInRoom++;
+        }
+
+        [Command]
+        public void CmdStartGame()
+        {
+            Debug.Log("Load Scene");
+            //RpcStartGame();
+            netPlayerManager.RpcStartGamae();
+        }
+
+        [ClientRpc]
+        public void RpcStartGame()
+        {
+            SceneManager.LoadScene("Map_1", LoadSceneMode.Single);
         }
     }
 }

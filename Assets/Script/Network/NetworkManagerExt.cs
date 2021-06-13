@@ -12,6 +12,7 @@ namespace Networking
     {
         public GameObject[] listScriptDontDestroy;
         public GameObject PlayerNetworkManager;
+        
 
 
         public override void OnStartServer()
@@ -22,6 +23,7 @@ namespace Networking
         }
         public override void OnServerConnect(NetworkConnection conn)
         {
+            //NetworkServer.Spawn(Instantiate(spawnPrefabs.Find(prefab => prefab.name == "--PlayerUI")));
             base.OnServerConnect(conn);
 
 
