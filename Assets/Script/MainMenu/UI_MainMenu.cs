@@ -4,34 +4,42 @@ using PeplayonMainMenu;
 using UnityEngine;
 using UnityEngine.UI;
 using Matchmaker;
+using TMPro;
 
 namespace PeplayonMainMenu
 {
     public class UI_MainMenu : MonoBehaviour
     {
+        public GameManager gameManager;
+
         [Header("Profile")]
-        public Text userName;
-        public Text level;
-        public Text id;
+        public TMP_Text userName;
+        public TMP_Text level;
+        public TMP_Text id;
 
-        public void Start()
+        [Header("Matchmaker Control")]
+        public UI_MatchMaking uI_MatchMaking;
+        public GameObject UI_MatchmakingGO;
+
+        public void Awake()
         {
-            Debug.Log("asdasd");
-            GameManager data = GameManager.instance;
-            userName.text = data.UserName;
-            id.text = data.ID;
-            level.text = data.Level.ToString();
         }
 
-        private void Update()
+        /**
+         * <summary>Call this on first set up</summary>
+         */
+        public void setUpProfile()
         {
-            if (DevConfig.isDevMode)
-            {
-                GameManager data = GameManager.instance;
-                userName.text = data.UserName;
-                id.text = data.ID;
-                level.text = data.Level.ToString();
-            }
+            gameManager = FindObjectOfType<GameManager>();
+            userName.text = gameManager.UserName;
+            id.text = gameManager.ID;
+            level.text = gameManager.Level.ToString();
         }
+
+        public void StartButton()
+        {
+
+        }
+
     }
 }

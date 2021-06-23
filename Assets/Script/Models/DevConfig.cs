@@ -3,14 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[AddComponentMenu("Dev")]
 public class DevConfig : MonoBehaviour
 {
-    public static DevConfig instance;
+    public bool isDevMode = true;
 
-    public static bool isDevMode = true;
+    [Header("Game Manager")]
+    public bool isInstanceGameManagerPrefab = true;
+    public GameObject gameManagerPrefab;
+    public GameManager gameManager;
+    GameObject _gameManager;
 
-    private void Start()
+
+    [Header("CUSTOM DATA PLAYER")]
+    public string Name = "Rizqy";
+    public string ID = "index1";
+    public string UserName = "PlayerKill";
+    public int level = 2;
+
+    public void Start()
     {
         if (isDevMode)
         {
@@ -19,7 +30,15 @@ public class DevConfig : MonoBehaviour
         {
             Debug.Log("Running Production");
         }
-
     }
 
+    public void instanceGameManger()
+    {
+        Debug.Log("Spawn Game Manager Dev COnfig");
+        _gameManager = Instantiate(gameManagerPrefab);
+        gameManager = _gameManager.GetComponent<GameManager>();
+        gameManager.UserName = UserName;
+        gameManager.ID = ID;
+        gameManager.Level = level;
+    }
 }

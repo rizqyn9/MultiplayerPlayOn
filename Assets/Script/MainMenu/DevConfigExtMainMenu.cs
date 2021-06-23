@@ -1,28 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PeplayonMainMenu;
 
 [AddComponentMenu("")]
 public class DevConfigExtMainMenu : DevConfig
 {
-    [Header("CUSTOM DATA PLAYER")]
-    [SerializeField] string Name = "Rizqy";
-    [SerializeField] string ID = "index1";
-    [SerializeField] string UserName = "PlayerKill";
-    [SerializeField] int level = 2;
-
-    private void Start()
+    [Header("DevConfigExtMainMenu")]
+    public UI_MainMenu uI_MainMenu;
+    public void Start()
     {
         if (isDevMode)
-        { 
-            Debug.Log("Running as Dev");
-            GameManager localData = GameManager.instance;
-            localData.UserName = UserName;
-            localData.Name = Name;
-            localData.ID = ID;
-            localData.Level = level;
-            Debug.Log(GameManager.Instance.UserName);
-
+        {
+            Debug.Log("dev");
+            if (isInstanceGameManagerPrefab)
+            {
+                instanceGameManger();
+                uI_MainMenu.setUpProfile();
+            }
         }
     }
 }

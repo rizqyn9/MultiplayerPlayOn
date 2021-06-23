@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDevMode: 1
-  isDev: 0
+  Reset: 0
 --- !u!4 &36478191
 Transform:
   m_ObjectHideFlags: 0
@@ -1908,7 +1908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a03859b5e2c40beabaf4113f43ae2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseURL: http://localhost:3000/api
+  baseURL: http://52.148.86.180:3000/api
   playerID: 
   isAuthenticated: 0
   MainMenuScene: Assets/Scenes/MainMenu.unity
@@ -2053,6 +2053,13 @@ MonoBehaviour:
   Name: 
   ID: 
   Level: 0
+  DataRoom:
+    Data: 
+    RoomID: 
+    Port: 0
+    IsPublic: 0
+    PlayersInRoom: []
+  NetID: 
 --- !u!4 &1714861229
 Transform:
   m_ObjectHideFlags: 0

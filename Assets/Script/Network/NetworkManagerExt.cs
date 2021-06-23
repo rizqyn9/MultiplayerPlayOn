@@ -19,6 +19,7 @@ namespace Networking
         {
             base.OnStartServer();
             PlayerNetworkManager = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "--PlayerNetworkManager"));
+            Debug.Log("Swpawn Player net");
             NetworkServer.Spawn(PlayerNetworkManager);
         }
         public override void OnServerConnect(NetworkConnection conn)
@@ -42,5 +43,34 @@ namespace Networking
 
         }
 
+        public override void OnClientChangeScene(string newSceneName, SceneOperation sceneOperation, bool customHandling)
+        {
+            Debug.Log("OnClientChangeScene");
+            base.OnClientChangeScene(newSceneName, sceneOperation, customHandling);
+        }
+
+        public override void OnClientSceneChanged(NetworkConnection conn)
+        {
+            Debug.Log("OnClientSceneChanged");
+            base.OnClientSceneChanged(conn);
+        }
+
+        public override void OnServerChangeScene(string newSceneName)
+        {
+            Debug.Log("OnServerChangeScene");
+            base.OnServerChangeScene(newSceneName);
+        }
+
+        public override void OnServerSceneChanged(string sceneName)
+        {
+            Debug.Log("OnServerSceneChanged");
+            base.OnServerSceneChanged(sceneName);
+        }
+
+        public override void ServerChangeScene(string newSceneName)
+        {
+            Debug.Log("ServerChangeScene");
+            base.ServerChangeScene(newSceneName);
+        }
     }
 }

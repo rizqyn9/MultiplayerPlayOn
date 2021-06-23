@@ -70,8 +70,6 @@ namespace PeplayonAuth
             {
                 playerID = PlayerPrefs.GetString("ID");
                 Debug.Log(playerID);
-                Debug.Log(PlayerPrefs.GetString("UserName"));
-                Debug.Log(PlayerPrefs.GetString("Name"));
                 HttpResponseMessage response = client.GetAsync(baseURL + "/getdata" + $"/{playerID}").GetAwaiter().GetResult();
                 string responseStr = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
                 Debug.Log(responseStr);

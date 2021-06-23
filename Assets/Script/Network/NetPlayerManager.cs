@@ -10,7 +10,12 @@ namespace Networking
 {
     public class NetPlayerManager : NetworkBehaviour
     {
-        [Scene] [SerializeField]
+        [Header("Scene Manager")]
+        [Scene] string Map1;
+        [Scene] string Map2;
+        [Scene] string Elimintaed;
+
+        [Scene]
         public string StartScene;
         public PlayerUI playerUI;
 
@@ -51,5 +56,7 @@ namespace Networking
             Debug.Log("rpc Scene");
             SceneManager.LoadScene(StartScene, LoadSceneMode.Single);
         }
+
+
     }
 }
