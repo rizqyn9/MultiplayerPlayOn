@@ -21,6 +21,19 @@ public class DevConfig : MonoBehaviour
     public string UserName = "PlayerKill";
     public int level = 2;
 
+    [Header("CUSTOM ROOM DATA")]
+    public bool isUseRoomData;
+    public Room room;
+
+    [Header("CONFIG INSTANCE")]
+    public enumInstance instance;
+    public enum enumInstance
+    {
+        isHost,
+        isServer,
+        isClient
+    }
+
     public void Start()
     {
         if (isDevMode)
@@ -38,7 +51,17 @@ public class DevConfig : MonoBehaviour
         _gameManager = Instantiate(gameManagerPrefab);
         gameManager = _gameManager.GetComponent<GameManager>();
         gameManager.UserName = UserName;
+        gameManager.Name = Name;
         gameManager.ID = ID;
         gameManager.Level = level;
+    }
+
+    public void setRoom()
+    {
+        room.Data = "Create dev room";
+        room.IsPublic = true;
+        room.Port = 5000;
+        room.RoomID = "PELER";
+        gameManager.DataRoom = room;
     }
 }

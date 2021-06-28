@@ -7,11 +7,12 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public struct PlayerShared
 {
+    public uint NetID;
+    public int PlayerIndex;
     public string ID;
     public string Name;
     public string UserName;
     public int Level;
-    public string NetID;
 }
 
 /**
@@ -22,76 +23,74 @@ namespace Networking
     public class PlayerNetwork : NetworkBehaviour
     {
         [SyncVar]
-        public string UserName;
-        [SyncVar]
-        public string Name;
-        [SyncVar]
-        public string ID;
-        [SyncVar]
-        public int Level;
-        [SyncVar]
-        public bool IsLeader;
-        [SyncVar]
-        public string NetID;
+        public PlayerShared playerShared;
 
+        [SyncVar(hook = nameof(UpdateLead))]
+        public bool isLeader;
+        public bool setLeader;
+
+        public int playerIndex;
+        [SerializeField] Net_Lobby Net_Lobby;
 
         public NetPlayerManager netPlayerManager;
-        public NetPlayerUI netPlayerUI;
 
-        public void Start()
-        {
-
-        }
-
-        private void Update()
-        {
-            if (!isLocalPlayer) return;
-            //netPlayerUI = GameObject.FindObjectOfType<NetPlayerUI>();
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("asdad");
-                //netPlayerUI.CmdPlayerCounter();
-            }
-        }
 
         private void Awake()
         {
             netPlayerManager = GameObject.FindObjectOfType<NetPlayerManager>();
-  
         }
 
+        /**
+         * Set Up Player Data to Sync local player
+         */
+        public override void OnStartClient()
+        {
+            if (!isLocalPlayer) return;
+            CmdPlayerSetUp(PlayerSharedSetUp());
+        }
+
+        [Client]
+        public void UpdateLead(bool old, bool _new)
+        {
+            Debug.Log("UpdateLead");
+            if (!isLocalPlayer) return;
+            Debug.Log("UpdateLead");
+            if (SceneManager.GetActiveScene().path != netPlayerManager.lobbyScene) return;
+            Debug.Log("UpdateLead");
+            Net_Lobby = FindObjectOfType<Net_Lobby>();
+            Net_Lobby.setLead(_new);
+        }
+
+        public void setLead()
+        {
+
+        }
 
         [Command]
-        public void CmdPlayerSetUp(PlayerShared playerShared)
+        public void CmdPlayerSetUp(PlayerShared _playerShared)
         {
-            //Debug.Log("CmdPlayerSetUp");
-            UserName = playerShared.UserName;
-            Name = playerShared.Name;
-            Level = playerShared.Level;
-            ID = playerShared.ID;
-            IsLeader = true;
-            NetID = playerShared.NetID;
+            Debug.Log("CmdPlayerSetUp");
+            playerShared = _playerShared;
+            isLeader = setLeader;
 
-            GameManager.Instance.NetID = NetID;
+            GameManager.Instance.NetID = netId;
             netPlayerManager.onlinePlayer.Add(playerShared);
-            netPlayerManager.OnlineNetID.Add(playerShared.ID);
-            netPlayerManager.onlinePlayerStr.Add(playerShared.UserName);
-            netPlayerManager.onlinePlayerDic.Add(NetID, playerShared);
-            netPlayerManager.TotalPlayersInRoom++;
+            netPlayerManager.onlinePlayerDic.Add(netId, playerShared);
         }
 
-        [Command]
-        public void CmdStartGame()
-        {
-            Debug.Log("Load Scene");
-            //RpcStartGame();
-            netPlayerManager.RpcStartGamae();
-        }
 
-        [ClientRpc]
-        public void RpcStartGame()
+        public PlayerShared PlayerSharedSetUp()
         {
-            SceneManager.LoadScene("Map_1", LoadSceneMode.Single);
+            PlayerShared setUp = new PlayerShared
+            {
+                ID = GameManager.instance.ID,
+                Name = GameManager.instance.Name,
+                UserName = GameManager.instance.UserName,
+                Level = GameManager.instance.Level,
+                NetID = netId,
+                PlayerIndex = playerIndex
+            }; 
+            return setUp;
         }
     }
 }

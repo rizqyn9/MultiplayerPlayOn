@@ -8,55 +8,96 @@ using UnityEngine.SceneManagement;
 
 namespace Networking
 {
+    public enum SceneStateEnum : byte
+    {
+        lobbyScene,
+    }
     public class NetPlayerManager : NetworkBehaviour
     {
+        public static NetPlayerManager Instance;
+        public Net_Lobby net_Lobby;
+
+        #region sceneState Masih Belom bisa diterapkan
+        /**
+         * Rencana dapat digunakan untuk instance class every scene change
+         * Jadi cuman jalan ketika scene ganti
+         */
+        public SceneStateEnum sceneState
+        {
+            get { return _sceneState; }
+            set
+            {
+                _sceneState = value;
+            }
+        }
+        [SerializeField] SceneStateEnum _sceneState;
+        #endregion
+
+        [Header("debug")]
+        public GameObject playerTest;
+        public bool localIsLeader;
+        public string netID;
+        public string DUmp;
+
         [Header("Scene Manager")]
-        [Scene] string Map1;
-        [Scene] string Map2;
-        [Scene] string Elimintaed;
+        [Scene] public string lobbyScene;
+        [Scene] public string Map1;
+        [Scene] public string Map2;
+        [Scene] public string Eliminated;
 
         [Scene]
         public string StartScene;
-        public PlayerUI playerUI;
 
-        public SyncList<string> onlinePlayerStr = new SyncList<string>();
-        public SyncList<PlayerShared> onlinePlayer = new SyncList<PlayerShared>();
-        public SyncList<string> OnlineNetID = new SyncList<string>();
-        public SyncDictionary<string, PlayerShared> onlinePlayerDic = new SyncDictionary<string, PlayerShared>();
+        /// <summary>
+        /// This will handling all event when player on connected or disconnected
+        /// </summary>
+        [SyncVar(hook =nameof(UpdatePlayerRoomState))]
+        public int numPlayers;
+        public readonly SyncList<PlayerShared> onlinePlayer = new SyncList<PlayerShared>();
+        public SyncDictionary<uint, PlayerShared> onlinePlayerDic = new SyncDictionary<uint, PlayerShared>();
 
-        // Event for Join player or Leaved Player
-        [SyncVar(hook = nameof(UpdatePlayerRoomState))]
-        public int TotalPlayersInRoom = 0;
+        #region Update Start
 
-        private void Awake()
+        private void OnEnable()
         {
-            DontDestroyOnLoad(gameObject);
+            NetworkManagerExt.OnPlayerStateChanged += testEvent;
+        }
+        private void OnDisable()
+        {
+            NetworkManagerExt.OnPlayerStateChanged -= testEvent;
+        }
+        private void Start()
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+            Debug.Log("Strat net player");
+        }
+        #endregion
+
+        public void testEvent()
+        {
+            Debug.Log("yuhuyy");
         }
 
+        [Command(requiresAuthority =false)]
         void UpdatePlayerRoomState(int old, int _new)
         {
-            playerUI = GameObject.FindObjectOfType<PlayerUI>();
-            //playerUI.UpdateUI(onlinePlayer[0].NetID);
-            playerUI.UpdateUI(OnlineNetID[0]);
+            Debug.Log("Update Total room");
+
+            if (SceneManager.GetActiveScene().path == lobbyScene)
+            {
+                Debug.Log("Update Total room");
+                net_Lobby = FindObjectOfType<Net_Lobby>();
+                net_Lobby.counter = _new;
+            }
         }
 
-        public override void OnStartClient()
+        [Server]
+        public void ServerHandlingPlayerDisconnect(uint _netID)
         {
+            Debug.Log(_netID);
+            onlinePlayerDic.Remove(_netID);
+            onlinePlayer.RemoveAll(res => res.NetID == _netID);
         }
-
-        public override void OnStopClient()
-        {
-            //PlayerUI go = GameObject.FindObjectOfType<PlayerUI>();
-            //Destroy(go.gameObject);
-        }
-
-        [ClientRpc]
-        public void RpcStartGamae()
-        {
-            Debug.Log("rpc Scene");
-            SceneManager.LoadScene(StartScene, LoadSceneMode.Single);
-        }
-
-
     }
 }

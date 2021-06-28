@@ -7,8 +7,9 @@ namespace PeplayonLobby
 {
     public class LobbySpawnHandle : NetworkBehaviour
     {
-        private void Start()
+        public override void OnStartClient()
         {
+            Debug.Log("Lobby Spawn handle");
         }
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 using UnityEngine.SceneManagement;
-using System.Net.Http;
 using UnityEditor;
 using TMPro;
 
@@ -29,13 +28,11 @@ namespace Matchmaker
         //[SerializeField] Button JoinBtn;
         //[SerializeField] Button AutoBtn;
 
-
         [Header("Lobby Scene")]
         [Scene] [SerializeField] string LobbyScene;
 
         [Header("Matchmaker")]
         [SerializeField] string baseURL = "http://localhost:3000/matchmaker";
-        HttpClient client = new HttpClient();
 
         public void fnStartButton()
         {
@@ -80,6 +77,7 @@ namespace Matchmaker
         {
             modeMatchCanvas.enabled = false;
             loadingCanvas.enabled = true;
+            StartAuto();
         }
         #endregion
 
@@ -87,14 +85,20 @@ namespace Matchmaker
         public void StartPublic()
         {
             Debug.Log($"Start Public");
+            createMatchCanvas.enabled = false;
+            loadingCanvas.enabled = true;
             Room result = GetComponent<MatchmakerServices>().ReqMatchPublic(baseURL);
             GameManager.Instance.DataRoom = result;
+            loadingCanvas.enabled = false;
+            createMatchCanvas.enabled = true;
             Debug.Log($"Port {result.Port}");
             //LoadGame(result);
         }
 
         public void StartPrivate()
         {
+            createMatchCanvas.enabled = false;
+            loadingCanvas.enabled = true;
             Debug.Log($"Start Private");
             Room result = GetComponent<MatchmakerServices>().ReqMatchPrivate(baseURL);
             GameManager.Instance.DataRoom = result;
@@ -106,6 +110,8 @@ namespace Matchmaker
         #region Join Room
         public void StartJoin()
         {
+            joinCanvas.enabled = false;
+            loadingCanvas.enabled = true;
             Debug.Log($"{JoinField.text}");
             Debug.Log($"Start Join");
             GetComponent<MatchmakerServices>().ReqMatchJoin(baseURL, JoinField.text);

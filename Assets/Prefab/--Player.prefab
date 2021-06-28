@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5707638965791177699}
   - component: {fileID: -9192600335876908096}
-  - component: {fileID: 7817727743444549823}
   - component: {fileID: -4474777454465898150}
   - component: {fileID: 1428582744222485872}
   m_Layer: 0
@@ -52,30 +51,6 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 
   hasSpawned: 0
---- !u!114 &7817727743444549823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5707638965791177724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 272e66c70c0b04917a663acffb69bb0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  PrefabPlayerUI: {fileID: 2733102983288154334, guid: c0ca68e6984c4406db2e53db1137a627, type: 3}
-  playerNetwork: {fileID: 1428582744222485872}
-  NetPlayerManagerPrefab: {fileID: 4159391462323396647, guid: 09cdae2c6b06844d78fc6cbb0cef168a, type: 3}
-  gameManager: {fileID: 0}
-  netPlayerManager: {fileID: 0}
-  playerShared:
-    ID: 
-    Name: 
-    UserName: 
-    Level: 0
 --- !u!114 &-4474777454465898150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,6 +71,8 @@ MonoBehaviour:
   localScaleSensitivity: 0.01
   compressRotation: 0
   interpolateScale: 1
+  interpolateRotation: 1
+  interpolatePosition: 1
   syncScale: 1
 --- !u!114 &1428582744222485872
 MonoBehaviour:
@@ -116,8 +93,8 @@ MonoBehaviour:
   ID: 
   Level: 0
   IsLeader: 0
+  NetID: 
   netPlayerManager: {fileID: 0}
-  netPlayerUI: {fileID: 0}
 --- !u!1 &5707638965901959308
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,7 +110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5707638965901959347
 Transform:
   m_ObjectHideFlags: 0

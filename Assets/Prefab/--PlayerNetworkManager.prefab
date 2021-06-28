@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneId: 0
   serverOnly: 0
-  visible: 0
+  visible: 2
   m_AssetId: 
   hasSpawned: 0
 --- !u!114 &-1904232279313856180
@@ -63,6 +63,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  uI_Lobby: {fileID: 0}
+  _sceneState: 0
+  playerTest: {fileID: 0}
+  localIsLeader: 0
+  netID: 
+  DUmp: 
+  lobbyScene: Assets/Scenes/Lobby.unity
+  Map1: Assets/Scenes/Map_1.unity
+  Map2: 
+  Elimintaed: 
   StartScene: Assets/Scenes/Map_1.unity
-  playerUI: {fileID: 0}
   TotalPlayersInRoom: 0
