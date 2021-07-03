@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 using Mirror;
 using PeplayonLobby;
 using UnityEngine.SceneManagement;
+using System;
 
 namespace Networking
 {
@@ -98,6 +99,18 @@ namespace Networking
             Debug.Log(_netID);
             onlinePlayerDic.Remove(_netID);
             onlinePlayer.RemoveAll(res => res.NetID == _netID);
+        }
+
+        public void SpawnCharModel(NetworkConnection conn, CharTypeEnum charTypeEnum, Transform _parent)
+        {
+            Debug.Log($"SpawnCharModel {conn.address}");
+            NetworkServer.Spawn(ServerSelectChar(charTypeEnum, _parent), conn);
+        }
+
+        private GameObject ServerSelectChar(CharTypeEnum charTypeEnum, Transform _parent)
+        {
+            CharacterBase characterBase = CharacterSource.Instance.SelectChar(charTypeEnum);
+            return Instantiate(characterBase.modelCharacter, NetworkManagerExt.startPositions[numPlayers % 2].position, Quaternion.identity, _parent);
         }
     }
 }

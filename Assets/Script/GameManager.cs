@@ -8,11 +8,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public static GameManager instance = null;
 
-    [SerializeField] public string UserName;
-    [SerializeField] public string Name;
-    [SerializeField] public string ID;
-    [SerializeField] public int Level;
-    [SerializeField] public Room DataRoom;
+    public string UserName;
+    public string Name;
+    public string ID;
+    public int Level;
+    public CharTypeEnum CharID;
+    public Room DataRoom;
 
     // Set Online Player
     public uint NetID;

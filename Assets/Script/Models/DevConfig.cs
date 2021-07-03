@@ -20,6 +20,7 @@ public class DevConfig : MonoBehaviour
     public string ID = "index1";
     public string UserName = "PlayerKill";
     public int level = 2;
+    public CharTypeEnum charType = CharTypeEnum.Char2;
 
     [Header("CUSTOM ROOM DATA")]
     public bool isUseRoomData;
@@ -54,6 +55,7 @@ public class DevConfig : MonoBehaviour
         gameManager.Name = Name;
         gameManager.ID = ID;
         gameManager.Level = level;
+        gameManager.CharID = charType;
     }
 
     public void setRoom()

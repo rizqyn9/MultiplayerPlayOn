@@ -63,15 +63,14 @@ MonoBehaviour:
   playerPrefab: {fileID: 5707638965791177724, guid: 5bcb7fb7ae341403986b8237ab661ee1, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs:
-  - {fileID: 4159391462323396647, guid: 09cdae2c6b06844d78fc6cbb0cef168a, type: 3}
-  - {fileID: 2733102983288154334, guid: c0ca68e6984c4406db2e53db1137a627, type: 3}
+  spawnPrefabs: []
   LobbyScene: Assets/Scenes/Lobby.unity
   Map_1: Assets/Scenes/Map_1.unity
   Map_2: 
   listScriptDontDestroy: []
   PlayerNetworkManager: {fileID: 4159391462323396647, guid: 09cdae2c6b06844d78fc6cbb0cef168a, type: 3}
   netPlayerManager: {fileID: 0}
+  playerIndex: 1
 --- !u!114 &2095951894846191116
 MonoBehaviour:
   m_ObjectHideFlags: 0

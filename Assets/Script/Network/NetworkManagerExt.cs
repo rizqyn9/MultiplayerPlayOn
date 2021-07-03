@@ -5,6 +5,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.Serialization;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 namespace Networking
 {
@@ -20,16 +21,28 @@ namespace Networking
         public GameObject PlayerNetworkManager;
         public NetPlayerManager netPlayerManager;
 
+        /// <summary>
+        /// Event for handling PlayerState
+        /// </summary>
         public static Action OnPlayerStateChanged;
 
         public int playerIndex = 1;
+
+        private void Start()
+        {
+            /// Load resources Spawnable
+            spawnPrefabs.AddRange(Resources.LoadAll<GameObject>("Prefab/Spawnable").ToList());
+            /// Load resources Character Prefab
+            spawnPrefabs.AddRange(Resources.LoadAll<GameObject>("Prefab/Character").ToList());
+        }
 
         #region SERVER CALLBACK
         public override void OnStartServer()
         {
             base.OnStartServer();
+            ///Spawn NetPlayerManager
             PlayerNetworkManager = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "--PlayerNetworkManager"));
-            Debug.Log("Spawn Player net");
+            //Debug.Log("Spawn Player net");
             NetworkServer.Spawn(PlayerNetworkManager);
         }
 
@@ -46,14 +59,19 @@ namespace Networking
 
         public override void OnServerAddPlayer(NetworkConnection conn)
         {
+            //Debug.Log("OnServerAddPlayer");
             if(SceneManager.GetActiveScene().path == LobbyScene)
             {
                 GameObject player = Instantiate(playerPrefab);
                 PlayerNetwork playerNetwork = player.GetComponent<PlayerNetwork>();
+
+                /// Set first player as default leader
                 if (numPlayers == 0) playerNetwork.setLeader = true;
                 playerNetwork.playerIndex = playerIndex;
                 NetworkServer.AddPlayerForConnection(conn, player);
             }
+
+            /// Update state inner Netplayermanager / can use like event player OnDisconnected / OnConnected
             NetPlayerManager.Instance.numPlayers = numPlayers;
             playerIndex++;
         }
