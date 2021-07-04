@@ -634,6 +634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 440192071}
   - component: {fileID: 440192070}
+  - component: {fileID: 440192072}
   m_Layer: 0
   m_Name: --GameSource
   m_TagString: Untagged
@@ -670,6 +671,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &440192072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440192069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ac7bc464f714f34803acf0f237cad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterTestings: []
 --- !u!1 &497076747
 GameObject:
   m_ObjectHideFlags: 0
@@ -3935,6 +3949,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2095951894846191115, guid: fbd88a78bb5e94732b138adb23513ebe, type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 1994441139690273037, guid: c5c7eccb264c8451393affab8f1de9e1, type: 3}
     - target: {fileID: 2095951894846191117, guid: fbd88a78bb5e94732b138adb23513ebe, type: 3}
       propertyPath: m_Name
       value: --NetworkManager

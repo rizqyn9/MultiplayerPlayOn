@@ -21,9 +21,9 @@ public class CharacterSource : MonoBehaviour
 
     public CharacterBase SelectChar(CharTypeEnum charTypeEnum)
     {
-        Debug.Log("SelectChar");
+        //Debug.Log("SelectChar");
         CharacterBase getChar = characterBases.Find(prefab => prefab.CharType == charTypeEnum);
-        Debug.Log($"Got Character {getChar.nameCharacter}");
+        //Debug.Log($"Got Character {getChar.nameCharacter}");
         Debug.Log("success Instantiate");
         return getChar;
     }

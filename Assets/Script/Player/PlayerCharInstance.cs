@@ -16,6 +16,12 @@ namespace Peplayon
             NetPlayerManager.Instance.SpawnCharModel(connectionToClient, charTypeEnum);
         }
 
+        [Command]
+        public void CmdInstanceCam()
+        {
+            
+        }
+
         #region Wrong but incredibble
         /// Something wrong
         //public void CustomInstance(CharTypeEnum charTypeEnum)
