@@ -92,7 +92,7 @@ namespace Peplayon
             //PlayerCharInstance.CmdInstanceChar(_new);
             //PlayerCharInstance.SpawnChild(_new);
 
-            PlayerCharInstance.SpawnChildClass(_new);
+            PlayerCharInstance.SpawnChildClass(_new, this.transform);
             /// Something wrong
             //CustomInstance(_new);
         }

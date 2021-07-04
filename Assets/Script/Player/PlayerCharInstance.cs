@@ -48,10 +48,10 @@ namespace Peplayon
         }
         #endregion
 
-        public void SpawnChildClass(CharClassType @new)
+        public void SpawnChildClass(CharClassType @new, Transform _parent)
         {
             characterClass = CharacterSource.Instance.SelectCharClass(@new);
-            GameObject gameObject = Instantiate(characterClass.playerObject, transform.position, Quaternion.identity, model.transform);
+            GameObject gameObject = Instantiate(characterClass.playerObject, _parent.position, Quaternion.identity, model.transform);
             playerNetwork.CharSpawn = gameObject;
         }
 
