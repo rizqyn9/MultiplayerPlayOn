@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
 using System;
+using System.Linq;
 
 [System.Serializable]
 public struct PlayerShared
@@ -17,13 +18,32 @@ public struct PlayerShared
     public CharTypeEnum CharType;
 }
 
+[System.Serializable]
+public struct PlayerSpawnGameObject
+{
+    public GameObject CharSpawn;
+    public GameObject CamCharSpawn;
+}
+
 /**
  * Sync data player 
  */
-namespace Networking
+namespace Peplayon
 {
     public class PlayerNetwork : NetworkBehaviour
     {
+        [Header("debug")]
+        public CharacterController characterController;
+        public Guid guidAsset;
+        public GameObject GOtest;
+        public GameObject[] testdebug;
+        public List<GameObject> GOlistDebug = new List<GameObject>();
+        public List<string> stringListDebug = new List<string>();
+
+        [Header("Player Spawn")]
+        public GameObject CharSpawn;
+        public GameObject CamSpawn;
+
         [SyncVar]
         public PlayerShared playerShared;
 
@@ -31,11 +51,11 @@ namespace Networking
         public bool isLeader;
         public bool setLeader;
 
-        //[SyncVar(hook =nameof(handleCharSpawn))]
-        public int CharID;
-
         [SyncVar(hook = nameof(handleCharSpawn))]
         public CharTypeEnum charTypeEnum = CharTypeEnum.None;
+
+        [SyncVar]
+        public PlayerSpawnGameObject playerSpawnGameObject;
 
         public int playerIndex;
         [SerializeField] Net_Lobby Net_Lobby;
@@ -56,35 +76,26 @@ namespace Networking
         {
             if (!isLocalPlayer) return;
             CmdPlayerSetUp(PlayerSharedSetUp());
+            netPlayerManager.localGameObject = this.gameObject;
             //CmdSetModelTest(playerShared.CharID);
         }
 
-        [Command(requiresAuthority =true)]
-        private void CmdSetModelTest(int charID, NetworkConnectionToClient sender = null)
-        {
-            NetworkServer.Spawn(PlayerCharInstance.SpawnChar(charID), sender);
-        }
-
-
+        #region Instance Char Art
         public void handleCharSpawn(CharTypeEnum _old, CharTypeEnum _new)
         {
             if (!isLocalPlayer) return;
             Debug.Log($"handleCharSpawn {_new.ToString()}");
-            //CmdInstanceChar(_new);
-            CmdInstanceChar2(_new);
+            PlayerCharInstance.CmdInstanceChar(_new);
+            /// Something wrong
+            //CustomInstance(_new);
         }
 
-        [Command]
-        private void CmdInstanceChar2(CharTypeEnum charTypeEnum)
-        {
-            Debug.Log("CmdInstanceChar2");
-            NetPlayerManager.Instance.SpawnCharModel(connectionToClient, charTypeEnum, Model);
-        }
+        #endregion
 
         [Command]
-        public void CmdInstanceChar(int charID, NetworkConnectionToClient sender = null)
+        public void CmdSetPlayerSpawnData(PlayerSpawnGameObject _playerSpawnGameObject)
         {
-            NetworkServer.Spawn(PlayerCharInstance.SpawnChar(charID), sender);
+            playerSpawnGameObject = _playerSpawnGameObject;
         }
 
         [Client]
@@ -96,7 +107,6 @@ namespace Networking
             Net_Lobby = FindObjectOfType<Net_Lobby>();
             Net_Lobby.setLead(_new);
         }
-
 
         [Command]
         public void CmdPlayerSetUp(PlayerShared _playerShared)
@@ -112,6 +122,30 @@ namespace Networking
             charTypeEnum = _playerShared.CharType;
         }
 
+        [ContextMenu("Cmd Test")]
+        //[Command]
+        public void CmdTest()
+        {
+            //characterController = NetworkClient.localPlayer.GetComponent<CharacterController>();
+            Debug.Log(NetworkClient.connection.identity.assetId);
+            Debug.Log(NetworkClient.connection.clientOwnedObjects);
+            //RpcTest();
+            //NetworkServer.Destroy(CharSpawn);
+            //foreach(GameObject go in NetworkClient.prefabs.Values)
+            //{
+            //    GOlistDebug.Add(go);
+            //}
+            //foreach(NetworkIdentity netid in NetworkIdentity.spawned.Values)
+            //{
+            //    Debug.Log(netid.netId);
+            //}
+        }
+
+        [ClientRpc]
+        public void RpcTest()
+        {
+            CharSpawn.SetActive(false);
+        }
 
         public PlayerShared PlayerSharedSetUp()
         {

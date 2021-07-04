@@ -13,5 +13,4 @@ public class CharacterBase : ScriptableObject
 
     [Tooltip("unique code as identity for player character")]
     public CharTypeEnum CharType;
-
 }

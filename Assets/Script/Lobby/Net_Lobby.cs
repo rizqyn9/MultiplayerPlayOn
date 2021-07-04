@@ -4,7 +4,7 @@ using UnityEngine;
 using Mirror;
 using PeplayonLobby;
 
-namespace Networking
+namespace Peplayon
 {
     public class Net_Lobby : NetworkBehaviour
     {

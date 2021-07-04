@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Mirror;
-using Networking;
+using Peplayon;
 
 namespace PeplayonLobby
 {

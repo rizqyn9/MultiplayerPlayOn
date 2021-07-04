@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-namespace Networking
+namespace Peplayon
 {
     [AddComponentMenu("")]
     public class NetworkManagerExt : NetworkManager
@@ -63,6 +63,7 @@ namespace Networking
             if(SceneManager.GetActiveScene().path == LobbyScene)
             {
                 GameObject player = Instantiate(playerPrefab);
+                player.name = $"--Player-{conn.connectionId}";
                 PlayerNetwork playerNetwork = player.GetComponent<PlayerNetwork>();
 
                 /// Set first player as default leader

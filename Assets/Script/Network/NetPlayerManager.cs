@@ -7,7 +7,7 @@ using PeplayonLobby;
 using UnityEngine.SceneManagement;
 using System;
 
-namespace Networking
+namespace Peplayon
 {
     public enum SceneStateEnum : byte
     {
@@ -34,7 +34,10 @@ namespace Networking
         [SerializeField] SceneStateEnum _sceneState;
         #endregion
 
-        [Header("debug")]
+        [Header("LocalPlayerData")]
+        public GameObject localGameObject;
+
+        [Header("Debug")]
         public GameObject playerTest;
         public bool localIsLeader;
         public string netID;
@@ -56,6 +59,8 @@ namespace Networking
         public int numPlayers;
         public readonly SyncList<PlayerShared> onlinePlayer = new SyncList<PlayerShared>();
         public SyncDictionary<uint, PlayerShared> onlinePlayerDic = new SyncDictionary<uint, PlayerShared>();
+        public SyncDictionary<string, GameObject> playerPrefabDict = new SyncDictionary<string, GameObject>();
+        public SyncDictionary<string, GameObject> camPlayerPrefabDict = new SyncDictionary<string, GameObject>();
 
         #region Update Start
 
@@ -101,16 +106,42 @@ namespace Networking
             onlinePlayer.RemoveAll(res => res.NetID == _netID);
         }
 
-        public void SpawnCharModel(NetworkConnection conn, CharTypeEnum charTypeEnum, Transform _parent)
+        #region Spawn Char
+        [Server]
+        public void SpawnCharModel(NetworkConnection conn, CharTypeEnum charTypeEnum)
         {
             Debug.Log($"SpawnCharModel {conn.address}");
-            NetworkServer.Spawn(ServerSelectChar(charTypeEnum, _parent), conn);
+            CharacterBase characterBase = ServerSelectChar(charTypeEnum);
+            GameObject gameObject = Instantiate(characterBase.modelCharacter, NetworkManagerExt.startPositions[numPlayers % 2].position, Quaternion.identity);
+            gameObject.name = $"--Char {characterBase.nameCharacter} - {conn.connectionId}";
+            NetworkServer.Spawn(gameObject, conn);
+            playerPrefabDict.Add(conn.identity.netId.ToString(), gameObject);
+            conn.identity.gameObject.GetComponent<PlayerNetwork>().CmdSetPlayerSpawnData(new PlayerSpawnGameObject { CharSpawn = gameObject });
         }
 
-        private GameObject ServerSelectChar(CharTypeEnum charTypeEnum, Transform _parent)
+        //[ClientRpc]
+
+        private CharacterBase ServerSelectChar(CharTypeEnum charTypeEnum)
         {
             CharacterBase characterBase = CharacterSource.Instance.SelectChar(charTypeEnum);
-            return Instantiate(characterBase.modelCharacter, NetworkManagerExt.startPositions[numPlayers % 2].position, Quaternion.identity, _parent);
+            //return Instantiate(characterBase.modelCharacter, NetworkManagerExt.startPositions[numPlayers % 2].position, Quaternion.identity, _parent);
+            return characterBase;
         }
+
+        [Server]
+        public void SpawnCustom(GameObject gameObject)
+        {
+            NetworkServer.Spawn(gameObject);
+        }
+
+        #endregion
+
+        #region Spawn Cam
+        [Server]
+        public void ServerSpawnCam(NetworkConnection conn)
+        {
+            Debug.Log("Spawn cam");
+        }
+        #endregion
     }
 }
