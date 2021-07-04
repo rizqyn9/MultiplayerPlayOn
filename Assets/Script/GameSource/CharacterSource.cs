@@ -7,6 +7,7 @@ public class CharacterSource : MonoBehaviour
     public static CharacterSource Instance { get; private set; }
 
     [SerializeField] List<CharacterBase> characterBases = new List<CharacterBase>();
+    [SerializeField] List<CharacterClass> characterClassList = new List<CharacterClass>();
 
     private void Awake()
     {
@@ -26,5 +27,12 @@ public class CharacterSource : MonoBehaviour
         Debug.Log($"Got Character {getChar.nameCharacter}");
         Debug.Log("success Instantiate");
         return getChar;
+    }
+
+    public CharacterClass SelectCharClass(CharClassType charClassType)
+    {
+        Debug.Log("SelectCharClass");
+        CharacterClass characterClass = characterClassList.Find(prefab => prefab.charClassType == charClassType);
+        return characterClass;
     }
 }

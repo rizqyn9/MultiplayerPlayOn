@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public string ID;
     public int Level;
     public CharTypeEnum CharID;
+    public CharClassType charClassType;
     public Room DataRoom;
 
     // Set Online Player

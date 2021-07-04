@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System;
 
 namespace Peplayon
 {
@@ -10,6 +11,7 @@ namespace Peplayon
         public PlayerNetwork playerNetwork;
         public GameObject model;
         public CharacterBase CharacterBase;
+        public CharacterClass characterClass;
 
         private void Awake()
         {
@@ -28,7 +30,6 @@ namespace Peplayon
             CharacterBase characterBase = CharacterSource.Instance.SelectChar(charTypeEnum);
             GameObject gameObject = Instantiate(characterBase.modelCharacter, transform.position, Quaternion.identity, model.transform);
             playerNetwork.CharSpawn = gameObject;
-
         }
 
         #region Wrong but incredibble
@@ -46,6 +47,13 @@ namespace Peplayon
             NetPlayerManager.Instance.SpawnCustom(gameObject);
         }
         #endregion
+
+        public void SpawnChildClass(CharClassType @new)
+        {
+            characterClass = CharacterSource.Instance.SelectCharClass(@new);
+            GameObject gameObject = Instantiate(characterClass.playerObject, transform.position, Quaternion.identity, model.transform);
+            playerNetwork.CharSpawn = gameObject;
+        }
 
     }
 }

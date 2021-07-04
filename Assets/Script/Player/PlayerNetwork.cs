@@ -16,6 +16,7 @@ public struct PlayerShared
     public string UserName;
     public int Level;
     public CharTypeEnum CharType;
+    public CharClassType charClassType;
 }
 
 [System.Serializable]
@@ -52,7 +53,8 @@ namespace Peplayon
         public bool setLeader;
 
         [SyncVar(hook = nameof(handleCharSpawn))]
-        public CharTypeEnum charTypeEnum = CharTypeEnum.None;
+        public CharClassType charClassType = CharClassType.None;
+        //public CharTypeEnum charTypeEnum = CharTypeEnum.None;
 
         [SyncVar]
         public PlayerSpawnGameObject playerSpawnGameObject;
@@ -81,13 +83,16 @@ namespace Peplayon
         }
 
         #region Instance Char Art
-        public void handleCharSpawn(CharTypeEnum _old, CharTypeEnum _new)
+        public void handleCharSpawn(CharClassType _old, CharClassType _new)
         {
+            Debug.Log($"handleCharSpawn {_new.ToString()}");
             if (CharSpawn) { Destroy(CharSpawn); }
 
             Debug.Log($"handleCharSpawn {_new.ToString()}");
             //PlayerCharInstance.CmdInstanceChar(_new);
-            PlayerCharInstance.SpawnChild(_new);
+            //PlayerCharInstance.SpawnChild(_new);
+
+            PlayerCharInstance.SpawnChildClass(_new);
             /// Something wrong
             //CustomInstance(_new);
         }
@@ -121,7 +126,7 @@ namespace Peplayon
             netPlayerManager.onlinePlayer.Add(playerShared);
             netPlayerManager.onlinePlayerDic.Add(netId, playerShared);
 
-            charTypeEnum = _playerShared.CharType;
+            charClassType = _playerShared.charClassType;
         }
 
         [ContextMenu("Cmd Test")]
@@ -159,7 +164,8 @@ namespace Peplayon
                 Level = GameManager.instance.Level,
                 CharType = GameManager.instance.CharID,
                 NetID = netId,
-                PlayerIndex = playerIndex
+                PlayerIndex = playerIndex,
+                charClassType = GameManager.instance.charClassType
             }; 
             return setUp;
         }

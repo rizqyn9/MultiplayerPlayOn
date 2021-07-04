@@ -656,6 +656,9 @@ MonoBehaviour:
   characterBases:
   - {fileID: 11400000, guid: 3b55b9e25971b43479a739f653c29a4a, type: 2}
   - {fileID: 11400000, guid: e257cb5394d734044b254bae9fb63e3c, type: 2}
+  characterClassList:
+  - {fileID: 11400000, guid: 85f8c6839a1c04a7e826f83e2b48fc0c, type: 2}
+  - {fileID: 11400000, guid: 42401dff98b014c498ece9e1d2e92d75, type: 2}
 --- !u!4 &440192071
 Transform:
   m_ObjectHideFlags: 0
@@ -2278,6 +2281,7 @@ MonoBehaviour:
   UserName: PlayerKill
   level: 2
   charType: 1
+  charClassType: 1
   isUseRoomData: 1
   room:
     Data: 

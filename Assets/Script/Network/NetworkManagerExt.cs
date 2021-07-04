@@ -62,7 +62,7 @@ namespace Peplayon
             //Debug.Log("OnServerAddPlayer");
             if(SceneManager.GetActiveScene().path == LobbyScene)
             {
-                GameObject player = Instantiate(playerPrefab);
+                GameObject player = Instantiate(playerPrefab, startPositions[playerIndex % 2]);
                 player.name = $"--Player-{conn.connectionId}";
                 PlayerNetwork playerNetwork = player.GetComponent<PlayerNetwork>();
 
