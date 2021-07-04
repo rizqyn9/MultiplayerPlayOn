@@ -83,9 +83,11 @@ namespace Peplayon
         #region Instance Char Art
         public void handleCharSpawn(CharTypeEnum _old, CharTypeEnum _new)
         {
-            if (!isLocalPlayer) return;
+            if (CharSpawn) { Destroy(CharSpawn); }
+
             Debug.Log($"handleCharSpawn {_new.ToString()}");
-            PlayerCharInstance.CmdInstanceChar(_new);
+            //PlayerCharInstance.CmdInstanceChar(_new);
+            PlayerCharInstance.SpawnChild(_new);
             /// Something wrong
             //CustomInstance(_new);
         }

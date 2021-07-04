@@ -119,8 +119,6 @@ namespace Peplayon
             conn.identity.gameObject.GetComponent<PlayerNetwork>().CmdSetPlayerSpawnData(new PlayerSpawnGameObject { CharSpawn = gameObject });
         }
 
-        //[ClientRpc]
-
         private CharacterBase ServerSelectChar(CharTypeEnum charTypeEnum)
         {
             CharacterBase characterBase = CharacterSource.Instance.SelectChar(charTypeEnum);

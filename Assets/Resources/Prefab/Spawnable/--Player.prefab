@@ -89,6 +89,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  characterController: {fileID: 0}
+  GOtest: {fileID: 0}
+  testdebug: []
+  GOlistDebug: []
+  stringListDebug: []
+  CharSpawn: {fileID: 0}
+  CamSpawn: {fileID: 0}
   playerShared:
     NetID: 0
     PlayerIndex: 0
@@ -99,8 +106,10 @@ MonoBehaviour:
     CharType: 0
   isLeader: 0
   setLeader: 0
-  CharID: 0
   charTypeEnum: 0
+  playerSpawnGameObject:
+    CharSpawn: {fileID: 0}
+    CamCharSpawn: {fileID: 0}
   playerIndex: 0
   Net_Lobby: {fileID: 0}
   netPlayerManager: {fileID: 0}
@@ -118,10 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2697abdf0d09408b965d1ecb7f377ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelInstance: {fileID: 5707638965901959308}
-  charList:
-  - {fileID: 11400000, guid: 3b55b9e25971b43479a739f653c29a4a, type: 2}
-  - {fileID: 11400000, guid: e257cb5394d734044b254bae9fb63e3c, type: 2}
+  syncMode: 0
+  syncInterval: 0.1
+  playerNetwork: {fileID: 1428582744222485872}
+  model: {fileID: 5707638965901959308}
+  CharacterBase: {fileID: 0}
 --- !u!1 &5707638965901959308
 GameObject:
   m_ObjectHideFlags: 0
