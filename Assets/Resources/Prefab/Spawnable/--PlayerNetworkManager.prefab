@@ -63,8 +63,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  uI_Lobby: {fileID: 0}
+  tempChar: {fileID: 586590253015116616, guid: 55a79e66c8b85429f8653184c8fc78ac, type: 3}
+  net_Lobby: {fileID: 0}
   _sceneState: 0
+  localGameObject: {fileID: 0}
   playerTest: {fileID: 0}
   localIsLeader: 0
   netID: 
@@ -72,6 +74,6 @@ MonoBehaviour:
   lobbyScene: Assets/Scenes/Lobby.unity
   Map1: Assets/Scenes/Map_1.unity
   Map2: 
-  Elimintaed: 
+  Eliminated: 
   StartScene: Assets/Scenes/Map_1.unity
-  TotalPlayersInRoom: 0
+  numPlayers: 0

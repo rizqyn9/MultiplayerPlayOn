@@ -15,6 +15,7 @@ namespace Peplayon
     }
     public class NetPlayerManager : NetworkBehaviour
     {
+        public GameObject tempChar;
         public static NetPlayerManager Instance;
         public Net_Lobby net_Lobby;
 
@@ -113,6 +114,7 @@ namespace Peplayon
             Debug.Log($"SpawnCharModel {conn.address}");
             CharacterBase characterBase = ServerSelectChar(charTypeEnum);
             GameObject gameObject = Instantiate(characterBase.modelCharacter, NetworkManagerExt.startPositions[numPlayers % 2].position, Quaternion.identity);
+            //GameObject gameObjectTemp = Instantiate(tempChar, NetworkManagerExt.startPositions[numPlayers % 2].position, Quaternion.identity);
             gameObject.name = $"--Char {characterBase.nameCharacter} - {conn.connectionId}";
             NetworkServer.Spawn(gameObject, conn);
             playerPrefabDict.Add(conn.identity.netId.ToString(), gameObject);
