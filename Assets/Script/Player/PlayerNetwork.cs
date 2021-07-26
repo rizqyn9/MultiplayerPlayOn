@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
 
+#region Struct 
 [System.Serializable]
 public struct PlayerShared
 {
@@ -24,6 +25,7 @@ public struct PlayerSpawnGameObject
     public GameObject CharSpawn;
     public GameObject CamCharSpawn;
 }
+#endregion
 
 /**
  * Sync data player 
@@ -32,17 +34,15 @@ namespace Peplayon
 {
     public class PlayerNetwork : NetworkBehaviour
     {
+
         [Header("debug")]
         public CharacterController characterController;
+        public GameObject playerTemp;
         public Guid guidAsset;
-        public GameObject GOtest;
-        public GameObject[] testdebug;
-        public List<GameObject> GOlistDebug = new List<GameObject>();
-        public List<string> stringListDebug = new List<string>();
+        public GameObject playerModel;
 
         [Header("Player Spawn")]
         public GameObject CharSpawn;
-        public GameObject CamSpawn;
 
         [SyncVar]
         public PlayerShared playerShared;
@@ -64,6 +64,7 @@ namespace Peplayon
         public PlayerCharInstance PlayerCharInstance;
         public Transform Model;
 
+        #region PlayerSetup
         private void Awake()
         {
             netPlayerManager = GameObject.FindObjectOfType<NetPlayerManager>();
@@ -77,35 +78,6 @@ namespace Peplayon
             if (!isLocalPlayer) return;
             CmdPlayerSetUp(PlayerSharedSetUp());
             netPlayerManager.localGameObject = this.gameObject;
-            //CmdSetModelTest(playerShared.CharID);
-        }
-
-        #region Instance Char Art
-        public void handleCharSpawn(CharTypeEnum _old, CharTypeEnum _new)
-        {
-            if (!isLocalPlayer) return;
-            Debug.Log($"handleCharSpawn {_new.ToString()}");
-            PlayerCharInstance.CmdInstanceChar(_new);
-            /// Something wrong
-            //CustomInstance(_new);
-        }
-
-        #endregion
-
-        [Command]
-        public void CmdSetPlayerSpawnData(PlayerSpawnGameObject _playerSpawnGameObject)
-        {
-            playerSpawnGameObject = _playerSpawnGameObject;
-        }
-
-        [Client]
-        public void UpdateLead(bool old, bool _new)
-        {
-            if (!isLocalPlayer) return;
-            if (SceneManager.GetActiveScene().path != netPlayerManager.lobbyScene) return;
-
-            Net_Lobby = FindObjectOfType<Net_Lobby>();
-            Net_Lobby.setLead(_new);
         }
 
         [Command]
@@ -121,24 +93,50 @@ namespace Peplayon
 
             charTypeEnum = _playerShared.CharType;
         }
+        #endregion
+
+        /// <summary>
+        /// Event trigger on Global Player State
+        /// </summary>
+        [Client]
+        public void UpdateLead(bool old, bool _new)
+        {
+            if (!isLocalPlayer) return;
+            if (SceneManager.GetActiveScene().path != netPlayerManager.lobbyScene) return;
+
+            Debug.Log("Net Update Lead");
+            Net_Lobby = FindObjectOfType<Net_Lobby>();
+            Net_Lobby.setLead(_new);
+            Net_Lobby.readyForSpawnArt();
+        }
+
+        #region PlayerInstance
+        public void handleCharSpawn(CharTypeEnum _old, CharTypeEnum _new)
+        {
+            Debug.Log("render art");
+            CmdCreatePlayer();
+        }
+
+        [Command]
+        public void CmdCreatePlayer()
+        {
+            netPlayerManager.RpcCreatePlayer();
+        }
+
+        public void SpawnCharModel()
+        {
+            /// return if player have playerModel
+            if (playerModel != null) return;
+            /// Spawn playerModel
+            playerModel = Instantiate(playerTemp, transform);
+        }
+        
+        #endregion
 
         [ContextMenu("Cmd Test")]
         //[Command]
         public void CmdTest()
         {
-            //characterController = NetworkClient.localPlayer.GetComponent<CharacterController>();
-            Debug.Log(NetworkClient.connection.identity.assetId);
-            Debug.Log(NetworkClient.connection.clientOwnedObjects);
-            //RpcTest();
-            //NetworkServer.Destroy(CharSpawn);
-            //foreach(GameObject go in NetworkClient.prefabs.Values)
-            //{
-            //    GOlistDebug.Add(go);
-            //}
-            //foreach(NetworkIdentity netid in NetworkIdentity.spawned.Values)
-            //{
-            //    Debug.Log(netid.netId);
-            //}
         }
 
         [ClientRpc]
@@ -161,6 +159,21 @@ namespace Peplayon
             }; 
             return setUp;
         }
+
+        #region Depreceated
+        //public void handleCharSpawn(CharTypeEnum _old, CharTypeEnum _new)
+        //{
+        //    if (!isLocalPlayer) return;
+        //    Debug.Log($"handleCharSpawn {_new.ToString()}");
+        //    PlayerCharInstance.CmdInstanceChar(_new);
+        //}
+        //[Command]
+        //public void CmdSetPlayerSpawnData(PlayerSpawnGameObject _playerSpawnGameObject)
+        //{
+        //    playerSpawnGameObject = _playerSpawnGameObject;
+        //}
+
+        #endregion
     }
 }
 

@@ -13,7 +13,7 @@ namespace Peplayon
         public void CmdInstanceChar(CharTypeEnum charTypeEnum)
         {
             if (!FindObjectOfType<NetPlayerManager>()) return;
-            NetPlayerManager.Instance.SpawnCharModel(connectionToClient, charTypeEnum);
+            //NetPlayerManager.Instance.SpawnCharModel(connectionToClient, charTypeEnum);
         }
 
         #region Wrong but incredibble
@@ -25,11 +25,11 @@ namespace Peplayon
         //    CmdCustomInstance(custom);
         //}
 
-        [Command]
-        public void CmdCustomInstance(GameObject gameObject)
-        {
-            NetPlayerManager.Instance.SpawnCustom(gameObject);
-        }
+        //[Command]
+        //public void CmdCustomInstance(GameObject gameObject)
+        //{
+        //    NetPlayerManager.Instance.SpawnCustom(gameObject);
+        //}
         #endregion
 
     }

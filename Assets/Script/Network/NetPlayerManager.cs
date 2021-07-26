@@ -13,10 +13,15 @@ namespace Peplayon
     {
         lobbyScene,
     }
+
+    /// <summary>
+    /// Singleton Class
+    /// </summary>
     public class NetPlayerManager : NetworkBehaviour
     {
-        public GameObject tempChar;
         public static NetPlayerManager Instance;
+
+        public GameObject tempChar;
         public Net_Lobby net_Lobby;
 
         #region sceneState Masih Belom bisa diterapkan
@@ -77,23 +82,22 @@ namespace Peplayon
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
-            Debug.Log("Strat net player");
+            //Debug.Log("Strat net player");
         }
         #endregion
 
         public void testEvent()
         {
-            Debug.Log("yuhuyy");
+            //Debug.Log("yuhuyy");
         }
 
         [Command(requiresAuthority =false)]
         void UpdatePlayerRoomState(int old, int _new)
         {
-            Debug.Log("Update Total room");
-
+            //Debug.Log("Update Total room
             if (SceneManager.GetActiveScene().path == lobbyScene)
             {
-                Debug.Log("Update Total room");
+                //Debug.Log("Update Total room");
                 net_Lobby = FindObjectOfType<Net_Lobby>();
                 net_Lobby.counter = _new;
             }
@@ -107,43 +111,60 @@ namespace Peplayon
             onlinePlayer.RemoveAll(res => res.NetID == _netID);
         }
 
-        #region Spawn Char
-        [Server]
-        public void SpawnCharModel(NetworkConnection conn, CharTypeEnum charTypeEnum)
+        [ClientRpc]
+        public void RpcCreatePlayer()
         {
-            Debug.Log($"SpawnCharModel {conn.address}");
-            CharacterBase characterBase = ServerSelectChar(charTypeEnum);
-            GameObject gameObject = Instantiate(characterBase.modelCharacter, NetworkManagerExt.startPositions[numPlayers % 2].position, Quaternion.identity);
-            //GameObject gameObjectTemp = Instantiate(tempChar, NetworkManagerExt.startPositions[numPlayers % 2].position, Quaternion.identity);
-            gameObject.name = $"--Char {characterBase.nameCharacter} - {conn.connectionId}";
-            NetworkServer.Spawn(gameObject, conn);
-            playerPrefabDict.Add(conn.identity.netId.ToString(), gameObject);
-            conn.identity.gameObject.GetComponent<PlayerNetwork>().CmdSetPlayerSpawnData(new PlayerSpawnGameObject { CharSpawn = gameObject });
+            Debug.Log("RPC create Player");
+            PlayerNetwork[] PlayerList = FindObjectsOfType<PlayerNetwork>();
+            Debug.Log(PlayerList.Length);
+            for(int i = 0; i < PlayerList.Length; i++)
+            {
+                PlayerList[i].SpawnCharModel();
+            }
         }
+
+
+        #region Depreceated
+        //[Server]
+        //public void SpawnCharModel(NetworkConnection conn, CharTypeEnum charTypeEnum)
+        //{
+        //    Debug.Log($"SpawnCharModel {conn.address}");
+        //    CharacterBase characterBase = ServerSelectChar(charTypeEnum);
+        //    GameObject gameObject = Instantiate(characterBase.modelCharacter, NetworkManagerExt.startPositions[numPlayers % 2].position, Quaternion.identity);
+        //    //GameObject gameObjectTemp = Instantiate(tempChar, NetworkManagerExt.startPositions[numPlayers % 2].position, Quaternion.identity);
+        //    gameObject.name = $"--Char {characterBase.nameCharacter} - {conn.connectionId}";
+        //    NetworkServer.Spawn(gameObject, conn);
+        //    playerPrefabDict.Add(conn.identity.netId.ToString(), gameObject);
+        //    conn.identity.gameObject.GetComponent<PlayerNetwork>().CmdSetPlayerSpawnData(new PlayerSpawnGameObject { CharSpawn = gameObject });
+        //}
 
         //[ClientRpc]
 
-        private CharacterBase ServerSelectChar(CharTypeEnum charTypeEnum)
-        {
-            CharacterBase characterBase = CharacterSource.Instance.SelectChar(charTypeEnum);
-            //return Instantiate(characterBase.modelCharacter, NetworkManagerExt.startPositions[numPlayers % 2].position, Quaternion.identity, _parent);
-            return characterBase;
-        }
+        //private CharacterBase ServerSelectChar(CharTypeEnum charTypeEnum)
+        //{
+        //    CharacterBase characterBase = CharacterSource.Instance.SelectChar(charTypeEnum);
+        //    //return Instantiate(characterBase.modelCharacter, NetworkManagerExt.startPositions[numPlayers % 2].position, Quaternion.identity, _parent);
+        //    return characterBase;
+        //}
 
-        [Server]
-        public void SpawnCustom(GameObject gameObject)
-        {
-            NetworkServer.Spawn(gameObject);
-        }
+        //#region Spawn Char
 
-        #endregion
 
-        #region Spawn Cam
-        [Server]
-        public void ServerSpawnCam(NetworkConnection conn)
-        {
-            Debug.Log("Spawn cam");
-        }
+        //[Server]
+        //public void SpawnCustom(GameObject gameObject)
+        //{
+        //    NetworkServer.Spawn(gameObject);
+        //}
+
+        //#endregion
+
+        //#region Spawn Cam
+        //[Server]
+        //public void ServerSpawnCam(NetworkConnection conn)
+        //{
+        //    Debug.Log("Spawn cam");
+        //}
+        //#endregion
         #endregion
     }
 }

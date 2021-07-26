@@ -3899,6 +3899,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1762590015918941280, guid: fbd88a78bb5e94732b138adb23513ebe, type: 3}
+      propertyPath: sceneId
+      value: 3121896804
+      objectReference: {fileID: 0}
     - target: {fileID: 2095951894846191114, guid: fbd88a78bb5e94732b138adb23513ebe, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3944,6 +3948,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2095951894846191115, guid: fbd88a78bb5e94732b138adb23513ebe, type: 3}
+      propertyPath: playerSpawnMethod
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095951894846191115, guid: fbd88a78bb5e94732b138adb23513ebe, type: 3}
       propertyPath: spawnPrefabs.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -3951,5 +3959,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: --NetworkManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2095951894846191117, guid: fbd88a78bb5e94732b138adb23513ebe, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1310052267886241382, guid: fbd88a78bb5e94732b138adb23513ebe, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fbd88a78bb5e94732b138adb23513ebe, type: 3}

@@ -12,6 +12,8 @@ namespace Peplayon
     [AddComponentMenu("")]
     public class NetworkManagerExt : NetworkManager
     {
+        [Header("debug")]
+
         [Header("Scene Management")]
         [SerializeField] [Scene] string LobbyScene;
         [SerializeField] [Scene] string Map_1;
@@ -26,7 +28,7 @@ namespace Peplayon
         /// </summary>
         public static Action OnPlayerStateChanged;
 
-        public int playerIndex = 1;
+        public int playerIndex = 0;
 
         private void Start()
         {
@@ -60,10 +62,12 @@ namespace Peplayon
         public override void OnServerAddPlayer(NetworkConnection conn)
         {
             //Debug.Log("OnServerAddPlayer");
-            if(SceneManager.GetActiveScene().path == LobbyScene)
+            if (SceneManager.GetActiveScene().path == LobbyScene)
             {
-                GameObject player = Instantiate(playerPrefab);
-                player.name = $"--Player-{conn.connectionId}";
+                GameObject player = Instantiate(playerPrefab, startPositions[playerIndex].position, startPositions[playerIndex].rotation);
+                //player.name = $"--Player-{conn.connectionId}";
+
+                player.name = $"--Player-{playerIndex}";
                 PlayerNetwork playerNetwork = player.GetComponent<PlayerNetwork>();
 
                 /// Set first player as default leader
@@ -74,7 +78,7 @@ namespace Peplayon
 
             /// Update state inner Netplayermanager / can use like event player OnDisconnected / OnConnected
             NetPlayerManager.Instance.numPlayers = numPlayers;
-            playerIndex++;
+            playerIndex+=1;
         }
 
         public override void OnServerSceneChanged(string sceneName)
