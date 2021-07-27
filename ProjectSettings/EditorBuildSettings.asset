@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Mirror/Examples/Room/Scenes/RoomScene.unity
     guid: 48478f4d522f96945b8396f376299d3a
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 712839a08d1eb4c7e9ad7a411047e4f0, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 96a355064b762421e9118cd6d2bfce40, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 547fe25321f8042ef9fee189b090178e, type: 2}

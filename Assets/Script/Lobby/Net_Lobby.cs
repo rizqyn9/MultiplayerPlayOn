@@ -25,6 +25,10 @@ namespace Peplayon
         [Command(requiresAuthority =false)]
         public void CmdStartGame()
         {
+            if(_networkManager == null)
+            {
+                _networkManager = FindObjectOfType<NetworkManagerExt>();
+            }
             _networkManager.ServerStartGame();
         }
         #endregion

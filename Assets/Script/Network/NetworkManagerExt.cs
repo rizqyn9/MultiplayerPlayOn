@@ -23,6 +23,7 @@ namespace Peplayon
         public GameObject PlayerNetworkManager;
         public NetPlayerManager netPlayerManager;
 
+
         /// <summary>
         /// Event for handling PlayerState
         /// </summary>
@@ -55,8 +56,16 @@ namespace Peplayon
 
         public override void OnServerReady(NetworkConnection conn)
         {
-            Debug.Log("OnServerReady");
+            //Debug.Log($"OnServerReady {conn.connectionId.ToString()} ");
             base.OnServerReady(conn);
+
+            string scene = SceneManager.GetActiveScene().name;
+            //Debug.Log(scene);
+            if (scene.StartsWith("Map"))
+            {
+                Debug.Log("Game Scene");
+                NetPlayerManager.Instance.playerSceneReady += 1;
+            }
         }
 
         public override void OnServerAddPlayer(NetworkConnection conn)
@@ -125,7 +134,11 @@ namespace Peplayon
         {
             Debug.Log("OnClientSceneChanged");
             base.OnClientSceneChanged(conn);
-            netPlayerManager = FindObjectOfType<NetPlayerManager>();
+            if(netPlayerManager == null)
+            {
+                netPlayerManager = FindObjectOfType<NetPlayerManager>();
+            }
+
 
         }
 
@@ -150,7 +163,6 @@ namespace Peplayon
             base.OnServerChangeScene(newSceneName);
         }
 
-
         public override void ServerChangeScene(string newSceneName)
         {
             Debug.Log("ServerChangeScene");
@@ -160,6 +172,8 @@ namespace Peplayon
         #region Start Handling
         public void ServerStartGame()
         {
+            Debug.Log("Start Game");
+            NetPlayerManager.Instance.RpcLoadScreen(true);
             ServerChangeScene(Map_1);
         }
         #endregion

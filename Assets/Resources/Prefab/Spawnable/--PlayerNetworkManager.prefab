@@ -63,6 +63,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  playerSceneReady: 0
+  isLoading: 0
+  loadScreenPrefab: {fileID: 677564881438021517, guid: 87b8317138aa746fcb330f3e5d019d76, type: 3}
   tempChar: {fileID: 586590253015116616, guid: 55a79e66c8b85429f8653184c8fc78ac, type: 3}
   net_Lobby: {fileID: 0}
   _sceneState: 0

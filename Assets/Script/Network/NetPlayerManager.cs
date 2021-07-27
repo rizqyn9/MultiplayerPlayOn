@@ -21,6 +21,11 @@ namespace Peplayon
     {
         public static NetPlayerManager Instance;
 
+        [SyncVar]
+        public int playerSceneReady;
+        public bool isLoading;
+        public GameObject loadScreenPrefab;
+
         public GameObject tempChar;
         public Net_Lobby net_Lobby;
 
@@ -121,6 +126,13 @@ namespace Peplayon
             {
                 PlayerList[i].SpawnCharModel();
             }
+        }
+
+        [ClientRpc]
+        public void RpcLoadScreen(bool isActive)
+        {
+            //loadScreenPrefab.SetActive(true);
+            Instantiate(loadScreenPrefab);
         }
 
 

@@ -9,10 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5707638965791177699}
-  - component: {fileID: -9192600335876908096}
   - component: {fileID: -4474777454465898150}
   - component: {fileID: 1428582744222485872}
+  - component: {fileID: -295086291780283655}
   - component: {fileID: 6390986538332016039}
+  - component: {fileID: 4399042556792948934}
+  - component: {fileID: 1456851093382301219}
+  - component: {fileID: 2053526322640474886}
+  - component: {fileID: -9192600335876908096}
   m_Layer: 0
   m_Name: --Player
   m_TagString: Player
@@ -35,23 +39,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-9192600335876908096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5707638965791177724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &-4474777454465898150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,6 +78,7 @@ MonoBehaviour:
   syncInterval: 0.1
   characterController: {fileID: 0}
   playerTemp: {fileID: 8905084614632999279, guid: 4328e756dcc6d45c8b98dfa7b7479dec, type: 3}
+  playerModel: {fileID: 0}
   CharSpawn: {fileID: 0}
   playerShared:
     NetID: 0
@@ -111,6 +99,32 @@ MonoBehaviour:
   netPlayerManager: {fileID: 0}
   PlayerCharInstance: {fileID: 6390986538332016039}
   Model: {fileID: 5707638965901959347}
+--- !u!114 &-295086291780283655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5707638965791177724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abde978003a7948f9800abba67c4b439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  characterController: {fileID: 4399042556792948934}
+  animState: 
+  isOnEffect: 0
+  isSpawned: 0
+  isDeath: 0
+  horizontal: 0
+  vertical: 0
+  turn: 0
+  jumpSpeed: 0
+  isGrounded: 1
+  isFalling: 0
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &6390986538332016039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +140,71 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playerNetwork: {fileID: 0}
+--- !u!143 &4399042556792948934
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5707638965791177724}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &1456851093382301219
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5707638965791177724}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &2053526322640474886
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5707638965791177724}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-9192600335876908096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5707638965791177724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &5707638965901959308
 GameObject:
   m_ObjectHideFlags: 0
