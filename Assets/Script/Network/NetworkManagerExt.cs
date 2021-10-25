@@ -58,13 +58,14 @@ namespace Peplayon
         {
             //Debug.Log($"OnServerReady {conn.connectionId.ToString()} ");
             base.OnServerReady(conn);
-
+            Debug.Log(numPlayers);
             string scene = SceneManager.GetActiveScene().name;
             //Debug.Log(scene);
             if (scene.StartsWith("Map"))
             {
                 Debug.Log("Game Scene");
                 NetPlayerManager.Instance.playerSceneReady += 1;
+                InstancePlayer(conn);
             }
         }
 
@@ -73,21 +74,26 @@ namespace Peplayon
             //Debug.Log("OnServerAddPlayer");
             if (SceneManager.GetActiveScene().path == LobbyScene)
             {
-                GameObject player = Instantiate(playerPrefab, startPositions[playerIndex].position, startPositions[playerIndex].rotation);
-                //player.name = $"--Player-{conn.connectionId}";
-
-                player.name = $"--Player-{playerIndex}";
-                PlayerNetwork playerNetwork = player.GetComponent<PlayerNetwork>();
-
-                /// Set first player as default leader
-                if (numPlayers == 0) playerNetwork.setLeader = true;
-                playerNetwork.playerIndex = playerIndex;
-                NetworkServer.AddPlayerForConnection(conn, player);
+                InstancePlayer(conn);
             }
 
             /// Update state inner Netplayermanager / can use like event player OnDisconnected / OnConnected
             NetPlayerManager.Instance.numPlayers = numPlayers;
             playerIndex+=1;
+        }
+
+        private void InstancePlayer(NetworkConnection conn)
+        {
+            GameObject player = Instantiate(playerPrefab, startPositions[playerIndex].position, startPositions[playerIndex].rotation);
+            //player.name = $"--Player-{conn.connectionId}";
+
+            player.name = $"--Player-{playerIndex}";
+            PlayerNetwork playerNetwork = player.GetComponent<PlayerNetwork>();
+
+            /// Set first player as default leader
+            if (numPlayers == 0) playerNetwork.setLeader = true;
+            playerNetwork.playerIndex = playerIndex;
+            NetworkServer.AddPlayerForConnection(conn, player);
         }
 
         public override void OnServerSceneChanged(string sceneName)
